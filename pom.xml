@@ -22,6 +22,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Spring 系列的相关依赖 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -37,7 +38,6 @@
             <artifactId>spring-beans</artifactId>
             <version>4.2.6.RELEASE</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -108,7 +108,6 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -196,7 +195,6 @@
         </dependency>
 
         <!-- 这三个依赖的范围要留意一下是什么意思？ -->
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
