@@ -15,4 +15,10 @@ public interface BloggerDao {
      * @return
      */
     Blogger getByUserName(@Param("userName") String userName);
+
+    /**
+     * 查询博主信息
+     * @return
+     */
+    Blogger find();
 }

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>我的博客项目</title>
@@ -175,10 +176,10 @@
                     <div class="panel-body">
                         <img style="height: 300px;" src="${pageContext.request.contextPath}/static/userImages/liwei.jpg">
                         <div align="center">
-                            李威威
+                            ${blogger.nickName}
                         </div>
                         <div align="center">
-                            （生活简单，做人诚实。）
+                            （${blogger.sign}）
                         </div>
                     </div>
                 </div>
@@ -259,18 +260,12 @@
                         <%-- 请参考 Bootstrap 列表组 链接部分 --%>
                         <div class="list-group">
                             <!-- active 表示当前突出显示的链接 -->
-                            <a href="https://github.com/" class="list-group-item ">
-                                GitHub
-                            </a>
-                            <a href="http://stackoverflow.com/" class="list-group-item">Stack Overflow</a>
-                            <a href="http://spring.io/" class="list-group-item">Spring</a>
-                            <a href="http://www.apache.org/" class="list-group-item">The Apache Software Foundation!</a>
-                            <a href="http://redis.io/" class="list-group-item">Redis</a>
+                            <c:forEach var="link" items="${linkList}">
+                                <a href="${link.linkUrl}" class="list-group-item" target="_blank">${link.linkName}</a>
+                            </c:forEach>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
 

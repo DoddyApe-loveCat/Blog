@@ -37,6 +37,12 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     
+    
+    <!-- 实现了 ServletContextListener，ApplicationContextAware 接口的监听器，一定要记得在 web.xml 文件中进行注册 -->
+    <listener>
+        <listener-class>com.liwei.service.impl.InitComponent</listener-class>
+    </listener>
+    
 
     <!-- 编码过滤器 -->
     <!-- 如果代码没有自动提示，就在 idea 里面设置一下 web.xml ，就会有提示了 -->
