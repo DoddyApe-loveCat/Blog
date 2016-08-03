@@ -1,7 +1,11 @@
 package com.liwei.service.impl;
 
+import com.liwei.entity.Blog;
+import com.liwei.entity.BlogType;
 import com.liwei.entity.Blogger;
 import com.liwei.entity.Link;
+import com.liwei.service.BlogService;
+import com.liwei.service.BlogTypeService;
 import com.liwei.service.BloggerService;
 import com.liwei.service.LinkService;
 import org.springframework.beans.BeansException;
@@ -46,9 +50,20 @@ public class InitComponent implements ServletContextListener,ApplicationContextA
         blogger.setPassword(null);
         servletContext.setAttribute("blogger",blogger);
 
+        // 查询所有的友情链接列表
         LinkService linkService =(LinkService) applicationContext.getBean("linkService");
-        List<Link> linkList = linkService.list(null);// 查询所有的友情链接列表
+        List<Link> linkList = linkService.list(null);
         servletContext.setAttribute("linkList",linkList);
+
+        // 根据博客类型分组查询博客数量放入 servletContext 中
+        BlogTypeService blogTypeService = (BlogTypeService)applicationContext.getBean("blogTypeService");
+        List<BlogType> blogTypeCountList = blogTypeService.countList();
+        servletContext.setAttribute("blogTypeCountList",blogTypeCountList);
+
+        // 根据年份月份分组查询博客数量放入 servletContext 中
+        BlogService blogService = (BlogService) applicationContext.getBean("blogService");
+        List<Blog> blogCountList = blogService.countList();
+        servletContext.setAttribute("blogCountList",blogCountList);
     }
 
     @Override

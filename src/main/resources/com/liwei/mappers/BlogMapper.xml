@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liwei.dao.BlogDao">
+
+    <resultMap id="BlogResult" type="Blog">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="summary" column="summary"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="clickHit" column="click_hit"/>
+        <result property="replyHit" column="reply_hit"/>
+        <result property="content" column="content"/>
+        <result property="keyword" column="key_word"/>
+        <association property="blogType" column="type_id"
+                     select="com.liwei.dao.BlogTypeDao.findById"></association>
+    </resultMap>
+
+    <!-- 根据年份月份分组查询博客数量 todo 看看这种写法能不能优化一下 -->
+    <select id="countList" resultMap="BlogResult">
+        SELECT
+            DATE_FORMAT(release_date,'%Y年%m月') AS releaseDateStr,
+            COUNT(DATE_FORMAT(release_date,'%Y年%m月')) AS blogCount
+        FROM
+            t_blog
+        GROUP BY DATE_FORMAT(release_date,'%Y年%m月')
+        ORDER BY DATE_FORMAT(release_date,'%Y年%m月') DESC
+    </select>
+
+
+    <select id="findByBlogId" parameterType="int" resultMap="BlogResult">
+        select
+            id,title,summary,release_date,click_hit,reply_hit,
+            content,type_id,key_word
+        from t_blog
+        where id = #{id}
+    </select>
+
+</mapper>

@@ -191,28 +191,13 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">14</span>
-                                <a href="#">JavaScript</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">19</span>
-                                <a href="#">Java 基础</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">22</span>
-                                <a href="#">Spring Boot</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">42</span>
-                                <a href="#">Spring MVC</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">25</span>
-                                <a href="#">MyBatis</a>
-                            </li>
+                            <c:forEach items="${blogTypeCountList}" var="blogType">
+                                <li class="list-group-item">
+                                    <span class="badge">${blogType.blogCount}</span>
+                                    <a href="#">${blogType.typeName}</a>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -225,26 +210,15 @@
                     </div>
                     <div class="panel-body">
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">14</span>
-                                <a href="#">2016 年 8 月</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">19</span>
-                                <a href="#">2016 年 7 月</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">22</span>
-                                <a href="#">2016 年 6 月</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">42</span>
-                                <a href="#">2016 年 5 月</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">25</span>
-                                <a href="#">2016 年 4 月</a>
-                            </li>
+
+                            <c:forEach items="${blogCountList}" var="blogCount">
+                                <li class="list-group-item">
+                                    <%-- 指定年份和月份博主发表的博客数量 --%>
+                                    <span class="badge">${blogCount.blogCount}</span>
+                                    <%-- 发布日期（只取年份和月份）--%>
+                                    <a href="#">${blogCount.releaseDateStr}</a>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>

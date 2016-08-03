@@ -1,11 +1,13 @@
 package com.liwei.service;
 
-import com.liwei.entity.Blogger;
+import com.liwei.entity.BlogType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -14,21 +16,18 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:application.xml"})
-public class BloggerServiceTest {
+public class BlogTypeServiceTest {
+
 
     @Autowired
-    private BloggerService bloggerService;
+    private BlogTypeService blogTypeService;
+
 
     @Test
-    public void testGetByUserName() throws Exception {
-        System.out.println(bloggerService.hashCode());
-        Blogger blogger = bloggerService.getByUserName("liwei");
-        System.out.println(blogger.getNickName());
-        System.out.println(blogger.getUserName());
-    }
-
-    @Test
-    public void testFind() throws Exception {
-
+    public void testCountList() throws Exception {
+        List<BlogType> blogTypeCountList = blogTypeService.countList();
+        for(BlogType blogType:blogTypeCountList){
+            System.out.println(blogType);
+        }
     }
 }
