@@ -26,13 +26,31 @@
         ORDER BY DATE_FORMAT(release_date,'%Y年%m月') DESC
     </select>
 
-
+    <!-- 根据主键 id 查询 Blog 实体 -->
     <select id="findByBlogId" parameterType="int" resultMap="BlogResult">
         select
             id,title,summary,release_date,click_hit,reply_hit,
             content,type_id,key_word
         from t_blog
         where id = #{id}
+    </select>
+
+
+    <!-- 按照发布日期降序排序 -->
+    <select id="list" parameterType="map" resultMap="BlogResult">
+        select
+            id,title,summary,release_date,click_hit,reply_hit,
+            content,type_id,key_word
+        from t_blog
+        order by release_date desc
+        <if test="start!=null and pageSize!=null">
+            limit ${start},${pageSize}
+        </if>
+    </select>
+
+
+    <select id="getTotal" resultType="long">
+        select count(*) from t_blog
     </select>
 
 </mapper>

@@ -3,6 +3,7 @@ package com.liwei.dao;
 import com.liwei.entity.Blog;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Liwei on 2016/8/2.
@@ -22,4 +23,10 @@ public interface BlogDao {
      * @return
      */
     Blog findByBlogId(Integer id);
+
+
+
+    List<Blog> list(Map<String,Object> params);
+
+    Long getTotal(Map<String,Object> params);
 }

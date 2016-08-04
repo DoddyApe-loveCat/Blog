@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Liwei on 2016/8/2.
@@ -29,5 +30,15 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog findByBlogId(Integer id) {
         return blogDao.findByBlogId(id);
+    }
+
+    @Override
+    public List<Blog> list(Map<String, Object> params) {
+        return blogDao.list(params);
+    }
+
+    @Override
+    public Long getTotal(Map<String, Object> params) {
+        return blogDao.getTotal(params);
     }
 }
