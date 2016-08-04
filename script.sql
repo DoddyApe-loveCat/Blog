@@ -73,11 +73,3 @@ CREATE TABLE t_blog(
   FOREIGN KEY (type_id) REFERENCES t_blogtype(id)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT '博客表';
 
-
-insert into t_blog(title,summary,release_date,click_hit,reply_hit,content,type_id,key_word)
-values('Spring 特性之一 Ioc','Spring 的摘要','2016-06-01 14:00:00',0,0,'Spring 90% 以上的公司都在使用。',1,'Spring Ioc Aop'),
-('使用 Maven 为项目添加依赖','Maven 的摘要','2016-05-01 19:00:00',0,0,'现在写的 Java Web 项目基本都是 Maven 构建的。',2,'Maven 依赖 Web 生命周期'),
-('使用 Spring Boot 简化 Spring Web 项目的开发','Spring Boot 的摘要','2016-04-01 22:00:00',0,0,'Spring Boot 使得 Spring 的开发更加简单、高效',3,'Spring Boot Gradle'),
-('Gradle 实战','Gradle 的摘要','2016-03-01 08:00:00',0,0,'Gradle 是比 Maven 更新的构建工具，理念上更先进，但是现在还没有全面铺开，因为 Maven 已经足够稳定了。 ',4,'Maven 构建 Gradle'),
-('Git 常用操作','Git 的摘要','2016-04-23 19:00:00',0,0,'Git 无疑是当今最最好的版本构建工具。',1,'Git Svn 版本管理工具'),
-('使用 IntelliJ IDEA 创建 Java Web 项目','IntelliJ IDEA 的摘要','2016-05-13 07:00:00',0,0,'IntelliJ IDEA 比 eclipse 更先进，更好用。',1,'IntelliJ IDEA eclipse sts');
