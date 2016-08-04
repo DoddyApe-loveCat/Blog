@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>我的博客项目</title>
+    <title>${pageTitle}</title>
 
     <%-- 引入 css 的时候，link 节点不要使用结束标记 --%>
     <link href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css" rel="stylesheet">

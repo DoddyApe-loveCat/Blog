@@ -63,8 +63,22 @@ public class IndexController {
         logger.debug("每页多少条数据 pageSize：" + pageSize);
 
         mav.addObject("pageCode", PageUtil.genPagination(request.getContextPath() + "/index.html",totalNum,Integer.parseInt(page),pageSize,null));
-        mav.addObject("paeTitle","Java 开源博客系统");
+        mav.addObject("pageTitle","Java 开源博客系统");
         mav.addObject("mainPage","foreground/blog/list.jsp");
+        mav.setViewName("mainTemp");
+        return mav;
+    }
+
+
+    /**
+     * 本站源码下载
+     * @return
+     */
+    @RequestMapping(value = "/srcDownload")
+    public ModelAndView srcDownload(){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("pageTitle","本站源码下载");
+        mav.addObject("mainPage","foreground/system/download.jsp");
         mav.setViewName("mainTemp");
         return mav;
     }

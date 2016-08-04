@@ -16,7 +16,7 @@ CREATE TABLE t_blogger (
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 comment '博主实体表';
 
 INSERT INTO t_blogger(userName,password,PROFILE,nickName,sign,imageName)
-values('liwei','be78263da332dc2c7005f7551d7e57cd',null,'李威威','生活简单，做人诚实。',null);
+values('liwei','be78263da332dc2c7005f7551d7e57cd','我出生在一个普普通通的家庭，资质很一般，高考也没有考好，通过高考改变自己的人生已经没有希望了。所以现在从事 IT 行业，希望通过写代码让自己的生活有所改变。我觉得自己是一个和别人有点不一样的人，很单纯，很善良，容易听信他人的话，但也很有个性，不喜欢人云亦云，虽然不出众，但也有自己的特点。','李威威','生活简单，做人诚实。','/static/userImages/liwei.jpg');
 
 
 DROP TABLE IF EXISTS t_blogtype;
@@ -73,3 +73,17 @@ CREATE TABLE t_blog(
   FOREIGN KEY (type_id) REFERENCES t_blogtype(id)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT '博客表';
 
+INSERT INTO t_blog(title,summary,release_date,click_hit,reply_hit,content,type_id,key_word)
+VALUES('Spring 特性之一 Ioc','Spring 的摘要','2016-06-01 14:00:00',0,0,'Spring 90% 以上的公司都在使用。',1,'Spring Ioc Aop'),
+('使用 Maven 为项目添加依赖','Maven 的摘要','2016-05-01 19:00:00',0,0,'现在写的 Java Web 项目基本都是 Maven 构建的。',2,'Maven 依赖 Web 生命周期'),
+('使用 Spring Boot 简化 Spring Web 项目的开发','Spring Boot 的摘要','2016-04-01 22:00:00',0,0,'Spring Boot 使得 Spring 的开发更加简单、高效',3,'Spring Boot Gradle'),
+('Gradle 实战','Gradle 的摘要','2016-03-01 08:00:00',0,0,'Gradle 是比 Maven 更新的构建工具，理念上更先进，但是现在还没有全面铺开，因为 Maven 已经足够稳定了。 ',4,'Maven 构建 Gradle'),
+('Git 常用操作','Git 的摘要','2016-04-23 19:00:00',0,0,'Git 无疑是当今最最好的版本构建工具。',1,'Git Svn 版本管理工具'),
+('Swagger UI 创建可交互的 API 文档','Swagger UI 的摘要','2015-01-01 07:00:00',0,0,'用了 Swagger UI 就不用写文档了。',1,'Swagger UI'),
+('多线程的生命周期','多线程编程的摘要','2015-01-14 07:00:00',0,0,'多线程让 Java 变得生不可测，奥妙无穷。',1,'多线程 生命周期 sleep yield wait notify 线程锁'),
+('网络编程的 TCP 与 UDP','网络编程的摘要','2015-01-28 07:00:00',0,0,'学会网络编程，你也懂得了 Tomcat。',1,'套接字 TCP UDP'),
+('正则表达式基础','正则表达式的摘要','2015-02-01 07:00:00',0,0,'正则表达式是一串强大的字符串。',1,'正则表达式 匹配 分割 查找 定位'),
+('Java IO 流的基本使用','Java IO流的摘要','2015-02-12 07:00:00',0,0,'Java 使用流来操作数据。',1,'IO File 装饰器设计模式 缓冲流 字节流 字符流 基础流 高级流'),
+('Java 集合类知多少','Java 集合的摘要','2015-03-18 07:00:00',0,0,'Java 的集合类就是一个容器。',1,'List Set Map 线程安全 线程不安全'),
+('Java 泛型知多少','Java 泛型的摘要','2015-03-24 07:00:00',0,0,'泛型让一些检查工作提前到编译期。',1,'菱形语法 泛型下限 泛型上线 通配符'),
+('Java 设计模式之单例模式','Java 设计模式单例的摘要','2015-04-01 07:00:00',0,0,'单例模式就是只有一个实例的设计模式。',1,'设计模式 单例 静态 私有');

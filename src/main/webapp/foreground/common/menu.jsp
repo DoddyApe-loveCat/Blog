@@ -13,15 +13,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><strong>首页</strong></a>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.html"><strong>首页</strong></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <%-- class="active" 表示这部分着重显示 --%>
-                        <li><a href="#">关于我 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">我的 Github 和 开源中国 </a></li>
+                        <li><a href="${pageContext.request.contextPath}/blogger/aboutMe.html">关于我 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/srcDownload.html">我的 Github 和 开源中国 </a></li>
 
                         <%-- 下拉导航 --%>
                         <%--<li class="dropdown">

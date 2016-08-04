@@ -9,6 +9,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,8 +41,21 @@ public class BloggerController {
             request.setAttribute("error","用户名或者密码错误！");
             return "login";
         }
-
-
     }
+
+    /**
+     * 关于博主模块的讨论
+     * @return
+     */
+    @RequestMapping(value = "/aboutMe")
+    public ModelAndView aboutMe(){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("pageTitle","关于博主");
+
+        mav.addObject("mainPage","/foreground/blogger/info.jsp");
+        mav.setViewName("mainTemp");
+        return mav;
+    }
+
 
 }
