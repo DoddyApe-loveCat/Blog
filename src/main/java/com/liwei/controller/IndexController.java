@@ -44,7 +44,10 @@ public class IndexController {
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public ModelAndView index(
-            @RequestParam(value = "page",required = false) String page, HttpServletRequest request){
+            @RequestParam(value = "page",required = false) String page,
+            @RequestParam(value = "typeId",required = false)String typeId,
+            @RequestParam(value = "releaseDateStr",required = false)String releaseDateStr,
+            HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
         // 如果不带请求参数，默认显示第 1 页
         if(StringUtils.isBlank(page)){
@@ -54,15 +57,26 @@ public class IndexController {
         Map<String,Object> params = new HashMap<>();
         params.put("start",pageBean.getStart());
         params.put("pageSize",pageBean.getPageSize());
+
+        StringBuffer paramstr = new StringBuffer();
+        if(!StringUtils.isBlank(typeId)){
+            params.put("type_id",typeId);
+            paramstr.append("&").append("typeId=").append(typeId);
+        }
+        if(!StringUtils.isBlank(releaseDateStr)){
+            params.put("releaseDateStr",releaseDateStr);
+            paramstr.append("&").append("releaseDateStr=").append(releaseDateStr);
+        }
+
         List<Blog> blogList = blogService.list(params);
         Long totalNum = blogService.getTotal(params);
         mav.addObject("blogList",blogList);
-
         logger.debug("一共多少数据 totalNum ：" + totalNum);
         logger.debug("当前请求第几页数据 page ：" + page);
         logger.debug("每页多少条数据 pageSize：" + pageSize);
 
-        mav.addObject("pageCode", PageUtil.genPagination(request.getContextPath() + "/index.html",totalNum,Integer.parseInt(page),pageSize,null));
+        mav.addObject("pageCode", PageUtil.genPagination(request.getContextPath() + "/index.html",totalNum,Integer.parseInt(page),pageSize,paramstr.toString()));
+
         mav.addObject("pageTitle","Java 开源博客系统");
         mav.addObject("mainPage","foreground/blog/list.jsp");
         mav.setViewName("mainTemp");

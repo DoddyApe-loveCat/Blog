@@ -74,7 +74,7 @@
                             <c:forEach items="${blogTypeCountList}" var="blogType">
                                 <li class="list-group-item">
                                     <span class="badge">${blogType.blogCount}</span>
-                                    <a href="#">${blogType.typeName}</a>
+                                    <a href="${pageContext.request.contextPath}/index.html?typeId=${blogType.id}">${blogType.typeName}</a>
                                 </li>
                             </c:forEach>
                         </ul>
@@ -95,7 +95,7 @@
                                     <%-- 指定年份和月份博主发表的博客数量 --%>
                                     <span class="badge">${blogCount.blogCount}</span>
                                     <%-- 发布日期（只取年份和月份）--%>
-                                    <a href="#">${blogCount.releaseDateStr}</a>
+                                    <a href="${pageContext.request.contextPath}/index.html?releaseDateStr=${blogCount.releaseDateStr}">${blogCount.releaseDateStr}</a>
                                 </li>
                             </c:forEach>
                         </ul>

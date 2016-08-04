@@ -35,6 +35,7 @@ public class PageUtil {
 
     /**
      * 生成分页栏的工具方法
+     * 心得：编写该工具方法不是一气呵成的，而是在开发中不断调试修改而成现在的比较稳定，且易于读懂的版本
      * todo 分页工具以后数据制造多了再来完善
      * 参考资料
      * http://blog.sina.com.cn/s/blog_649216c701015uzn.html
@@ -64,13 +65,13 @@ public class PageUtil {
                 pageCode.append("<li class=\"disabled\"><a href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">上一页</span></a></li>");
             }else {
                 // 如果当前请求不是第 1 页，首页和上一页都对应相应的功能
-                pageCode.append("<li><a href=\"" + targetUrl + "\">首页</a></li>");
-                pageCode.append("<li><a href=\"" + targetUrl + "?page=" + (currentNum -1) + "\" aria-label=\"Previous\"><span aria-hidden=\"true\">上一页</span></a></li>");
+                pageCode.append("<li><a href=\"" + targetUrl + "?page=1" + params + "\">首页</a></li>");
+                pageCode.append("<li><a href=\"" + targetUrl + "?page=" + (currentNum -1)  + params +"\" aria-label=\"Previous\"><span aria-hidden=\"true\">上一页</span></a></li>");
             }
 
             // 页面显示的数字页码的起始页码
             long showBeginPage = 1;
-
+            long showEndPage = totalPage;
             // 如果总的页数大于 5 ，就应该控制页面显示的页码数量为 5 ，否则太难看了
             if(totalPage > 5 ) {
                 if(currentNum < 3){
@@ -80,16 +81,17 @@ public class PageUtil {
                 }else if(currentNum > totalPage - 2){
                     showBeginPage = totalPage -4;
                 }
+                // 使用 showBeginPage + 4，就总能保证显示的页码数量是 5
+                showEndPage = showBeginPage + 4;
             }
             // 页面显示的数字页码的结束页码
-            // 使用 showBeginPage + 4，就总能保证显示的页码数量是 5
-            long showEndPage = showBeginPage + 4;
+
 
             for(long i=showBeginPage;i<=showEndPage;i++){
                 if(currentNum  == i){
-                    pageCode.append("<li class=\"active\"><a href=\"" + targetUrl + "?page=" + i + "\">" + i + "</a></li>");
+                    pageCode.append("<li class=\"active\"><a href=\"" + targetUrl + "?page=" + i + params + "\">" + i + "</a></li>");
                 }else {
-                    pageCode.append("<li><a href=\"" + targetUrl + "?page=" + i + "\">" + i + "</a></li>");
+                    pageCode.append("<li><a href=\"" + targetUrl + "?page=" + i + params + "\">" + i + "</a></li>");
                 }
             }
             if(currentNum == totalPage){
@@ -98,8 +100,8 @@ public class PageUtil {
                 pageCode.append("<li class=\"disabled\"><a href=\"#\">尾页</a></li>");
             }else {
                 // 如果当前页不等于最后一页，下一页和尾页的按钮具有相应的功能
-                pageCode.append("<li><a href=\"" + targetUrl + "?page=" + (currentNum + 1) + "\" aria-label=\"Next\" ><span aria-hidden=\"true\">下一页</span></a></li>");
-                pageCode.append("<li><a href=\"" + targetUrl + "\">尾页</a></li>");
+                pageCode.append("<li><a href=\"" + targetUrl + "?page=" + (currentNum + 1) + params + "\" aria-label=\"Next\" ><span aria-hidden=\"true\">下一页</span></a></li>");
+                pageCode.append("<li><a href=\"" + targetUrl + params + "\">尾页</a></li>");
             }
             pageCode.append("</ul></nav>");
             return pageCode.toString();
