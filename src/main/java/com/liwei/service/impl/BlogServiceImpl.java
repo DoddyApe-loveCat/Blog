@@ -41,4 +41,19 @@ public class BlogServiceImpl implements BlogService {
     public Long getTotal(Map<String, Object> params) {
         return blogDao.getTotal(params);
     }
+
+    @Override
+    public void update(Blog blog) {
+        blogDao.update(blog);
+    }
+
+    @Override
+    public Blog getPrevious(Integer currentArticleId) {
+        return blogDao.getPrevious(currentArticleId);
+    }
+
+    @Override
+    public Blog getNext(Integer currentArticleId) {
+        return blogDao.getNext(currentArticleId);
+    }
 }

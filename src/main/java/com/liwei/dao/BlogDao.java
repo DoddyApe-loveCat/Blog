@@ -29,4 +29,24 @@ public interface BlogDao {
     List<Blog> list(Map<String,Object> params);
 
     Long getTotal(Map<String,Object> params);
+
+    /**
+     * 更新 Blog 实例
+     * @param blog
+     */
+    void update(Blog blog);
+
+    /**
+     * 获取上一篇博客
+     * @param currentArticleId
+     * @return
+     */
+    Blog getPrevious(Integer currentArticleId);
+
+    /**
+     * 获取下一篇博客
+     * @param currentArticleId
+     * @return
+     */
+    Blog getNext(Integer currentArticleId);
 }

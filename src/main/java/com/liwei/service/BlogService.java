@@ -17,7 +17,7 @@ public interface BlogService {
      * 根据日期分月分组查询
      * @return
      */
-    public List<Blog> countList();
+    List<Blog> countList();
 
     /**
      *
@@ -42,5 +42,25 @@ public interface BlogService {
      * @return
      */
     Long getTotal(Map<String,Object> params);
+
+    /**
+     * 更新 Blog 实例
+     * @param blog
+     */
+    void update(Blog blog);
+
+    /**
+     * 获取上一篇博客
+     * @param currentArticleId
+     * @return
+     */
+    Blog getPrevious(Integer currentArticleId);
+
+    /**
+     * 获取下一篇博客
+     * @param currentArticleId
+     * @return
+     */
+    Blog getNext(Integer currentArticleId);
 
 }

@@ -35,7 +35,6 @@
         where id = #{id}
     </select>
 
-
     <!-- 按照发布日期降序排序 -->
     <select id="list" parameterType="map" resultMap="BlogResult">
         select
@@ -68,5 +67,50 @@
             </if>
         </where>
     </select>
+
+    <update id="update" parameterType="Blog">
+        UPDATE
+            t_blog
+        <set>
+            <if test="clickHit !=null and clickHit!=0">
+                click_hit = #{clickHit},
+            </if>
+            <if test="replyHit !=null and replyHit!=0">
+                reply_hit = #{replyHit},
+            </if>
+            <if test="content !=null and content != ''">
+                content = #{content},
+            </if>
+        </set>
+        <where>
+            <if test="id !=null and id!=''">
+                id=#{id}
+            </if>
+        </where>
+    </update>
+
+    <!-- 根据当前博客文章的 id 获取上一篇博客实例 -->
+    <select id="getPrevious" parameterType="int" resultMap="BlogResult">
+        select
+            id,title,summary,release_date,click_hit,reply_hit,
+            content,type_id,key_word
+        from t_blog
+        where id &lt; #{id}
+        order by id desc
+        limit 1
+    </select>
+
+    <!-- 根据当前博客文章的 id 获取上一篇博客实例 -->
+    <select id="getNext" parameterType="int" resultMap="BlogResult">
+        select
+        id,title,summary,release_date,click_hit,reply_hit,
+        content,type_id,key_word
+        from t_blog
+        where id &gt; #{id}
+        order by id
+        limit 1
+    </select>
+
+
 
 </mapper>

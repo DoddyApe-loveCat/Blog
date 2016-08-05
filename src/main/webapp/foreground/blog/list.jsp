@@ -13,7 +13,13 @@
     <div class="panel panel-success">
         <div class="panel-heading">
             <b><span class="text-right"><fmt:formatDate value="${blog.releaseDate}" type="date" pattern="yyyy 年 MM 月 dd 日"/></span></b>
-            <b><h3 class="panel-title">${blog.title}</h3></b>
+            <b>
+                <h3 class="panel-title">
+                    <a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">
+                        ${blog.title}
+                    </a>
+                </h3>
+            </b>
         </div>
         <div class="panel-body">
             摘要：${blog.summary}

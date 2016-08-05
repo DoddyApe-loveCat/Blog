@@ -87,3 +87,17 @@ VALUES('Spring 特性之一 Ioc','Spring 的摘要','2016-06-01 14:00:00',0,0,'S
 ('Java 集合类知多少','Java 集合的摘要','2015-03-18 07:00:00',0,0,'Java 的集合类就是一个容器。',3,'List Set Map 线程安全 线程不安全'),
 ('Java 泛型知多少','Java 泛型的摘要','2015-03-24 07:00:00',0,0,'泛型让一些检查工作提前到编译期。',4,'菱形语法 泛型下限 泛型上线 通配符'),
 ('Java 设计模式之单例模式','Java 设计模式单例的摘要','2015-04-01 07:00:00',0,0,'单例模式就是只有一个实例的设计模式。',4,'设计模式 单例 静态 私有');
+
+
+todo 设置外键
+drop table if EXISTS t_comment;
+CREATE TABLE t_comment(
+  id int(11) NOT NULL AUTO_INCREMENT comment '主键 id',
+  user_ip varchar(50) DEFAULT NULL comment '用户 ip',
+  blog_id int(11) DEFAULT NULL comment '博客 id',
+  content VARCHAR(1000) DEFAULT NULL comment '评论内容',
+  comment_date datetime DEFAULT NULL comment '评论日期（时间）',
+  state int(11) DEFAULT NULL comment '审核状态',
+  PRIMARY KEY (id),
+  FOREIGN KEY (blog_id) REFERENCES t_blog(id)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 comment '博客评论表';
