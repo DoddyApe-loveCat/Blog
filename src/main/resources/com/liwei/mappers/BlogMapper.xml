@@ -112,5 +112,10 @@
     </select>
 
 
+    <insert id="add" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
+        insert into t_blog(title,summary,release_date,click_hit,reply_hit,content,type_id,key_word)
+        values (#{title},#{summary},now(),0,0,#{content},#{blogType.id},#{keyword})
+    </insert>
+
 
 </mapper>

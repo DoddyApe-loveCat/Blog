@@ -63,4 +63,11 @@ public interface BlogService {
      */
     Blog getNext(Integer currentArticleId);
 
+    /**
+     * 添加博客信息
+     * @param blog
+     * @return
+     */
+    Integer add(Blog blog);
+
 }

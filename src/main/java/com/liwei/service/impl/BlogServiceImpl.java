@@ -56,4 +56,9 @@ public class BlogServiceImpl implements BlogService {
     public Blog getNext(Integer currentArticleId) {
         return blogDao.getNext(currentArticleId);
     }
+
+    @Override
+    public Integer add(Blog blog) {
+        return blogDao.add(blog);
+    }
 }

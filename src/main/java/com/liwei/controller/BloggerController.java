@@ -33,6 +33,7 @@ public class BloggerController {
         try{
             // Shiro 发挥了作用
             subject.login(token);
+            // 重定向到一个 jsp 页面
             return "redirect:/admin/main.jsp";
         }catch (Exception e){
             // TODO: 2016/8/1 应该记录日志
