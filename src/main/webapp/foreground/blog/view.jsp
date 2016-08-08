@@ -14,7 +14,7 @@
         <div align="center">
             发布时间：<fmt:formatDate value="${blog.releaseDate}" type="date" pattern="yyyy-MM-dd HH:mm:ss"/>
             &nbsp;&nbsp;
-            博客类别：${blog.title}&nbsp;&nbsp;
+            博客类别：${blog.blogType.typeName}&nbsp;&nbsp;
             阅读(${blog.clickHit})&nbsp;&nbsp;
             评论(${blog.replyHit})&nbsp;&nbsp;
         </div>

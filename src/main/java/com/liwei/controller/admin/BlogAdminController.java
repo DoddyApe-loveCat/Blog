@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
@@ -43,13 +44,14 @@ public class BlogAdminController {
             resultTotal = blogService.add(blog);
         }else{
             // 如果带上 id ，就表明是一个修改方法
+            resultTotal = blogService.update(blog);
         }
         Map<String,Object> result = new HashMap<>();
         if(resultTotal > 0 ){
             result.put("success",true);
         }else {
             result.put("success",false);
-            result.put("errorInfo","添加博客出错！");
+            result.put("errorInfo","后台服务出错！");
         }
         return result;
     }
@@ -81,7 +83,19 @@ public class BlogAdminController {
         result.put("rows",jsonArray);
         result.put("total",total);
         String resultStr = result.toString();
-        System.out.println(resultStr);
         return resultStr;
     }
+
+    /**
+     * 后台管理 ajax 方法，根据 blogId 查询 Blog 实体
+     * @param blogId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findById")
+    public Blog findById(@RequestParam("id") String blogId){
+        return blogService.findByBlogId(Integer.valueOf(blogId));
+    }
+
+
 }

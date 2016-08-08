@@ -81,6 +81,16 @@
             <if test="content !=null and content != ''">
                 content = #{content},
             </if>
+            <if test="summary != null">
+                summary = #{summary},
+            </if>
+            <if test="keyword != null">
+                key_word = #{keyword},
+            </if>
+            <if test="blogType.id != null">
+                type_id = #{blogType.id},
+            </if>
+                release_date = now()
         </set>
         <where>
             <if test="id !=null and id!=''">

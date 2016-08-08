@@ -47,7 +47,7 @@ public interface BlogService {
      * 更新 Blog 实例
      * @param blog
      */
-    void update(Blog blog);
+    Integer update(Blog blog);
 
     /**
      * 获取上一篇博客
