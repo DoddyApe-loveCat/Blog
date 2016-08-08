@@ -51,6 +51,11 @@ public class PageBean {
         this.pageSize = pageSize;
     }
 
+    /**
+     * 特别关注这个方法的编写，使用 PageBean 封装分页参数，很重要的一个目的就是为了通过
+     * 请求第几页和 pageSize 去计算开始的数据编号 start
+     * @return
+     */
     public Integer getStart() {
         return (page - 1)* pageSize;
     }

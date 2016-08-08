@@ -171,6 +171,16 @@
 	background: url('icons/Article_Page_16px_1174327_easyicon.net.png') no-repeat center center;
 }
 
+/*修改*/
+.icon-modify {
+	background: url('icons/Modify_16px_1060983_easyicon.net.png') no-repeat center center;
+}
+
+/*删除*/
+.icon-delete {
+	background: url('icons/sign_delete_15.223300970874px_1185686_easyicon.net.png') no-repeat center center;
+}
+
 
 
 
