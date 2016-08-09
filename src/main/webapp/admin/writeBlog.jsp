@@ -74,13 +74,26 @@
 
     <script type="text/javascript">
         $(function(){
+
+            /**
+             * 重置博客各个输入框
+             */
+            function resetWriteBlog(){
+                // easyui 验证文本框组件
+                $("#title").val("");
+                $("#blogTypeId").combobox('setValue','');
+                UE.getEditor('container').setContent('');
+                // easyui 普通文本框组件
+                $("#keyword").textbox('setValue','');
+            }
+
+
            $("#publishBlog").on("click",function(){
                var title = $("#title").val();
                // 参考了官方的例子
                var blogTypeId = $("#blogTypeId").combobox('getValue');
                var content = UE.getEditor('container').getContent();
                var keyword = $("#keyword").val();
-
 
                if(title == null || title == ''){
                    alert("请填写博客标题！");
@@ -89,7 +102,7 @@
                }else if(content ==null || content == ''){
                    alert("请填写博客内容！");
                }else {
-
+                   // 摘要取编辑器纯文本状态下前 155 个字符
                    var summary = UE.getEditor('container').getContentTxt().substr(0,155);
 
                    $.post("${pageContext.request.contextPath}/admin/blog/save.do",{
@@ -99,7 +112,14 @@
                        "summary":summary,
                        "keyword":keyword
                    },function(data){
-
+                       if(data.success){
+                           $.messager.alert('提示','博客发布成功！','info');
+                           // 清空各个输入框
+                           resetWriteBlog();
+                           // $("#title").focus();
+                       }else {
+                           $.messager.alert('提示',data.errorInfo,'error');
+                       }
                    },"json");
                }
            });

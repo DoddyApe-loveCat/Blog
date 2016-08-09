@@ -61,4 +61,9 @@ public class BlogServiceImpl implements BlogService {
     public Integer add(Blog blog) {
         return blogDao.add(blog);
     }
+
+    @Override
+    public Integer deleteBlogList(List<Integer> ids) {
+        return blogDao.deleteBlogList(ids);
+    }
 }

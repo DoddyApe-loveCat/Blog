@@ -70,4 +70,7 @@ public interface BlogService {
      */
     Integer add(Blog blog);
 
+
+    Integer deleteBlogList(List<Integer> ids);
+
 }

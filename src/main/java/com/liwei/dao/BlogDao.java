@@ -56,4 +56,10 @@ public interface BlogDao {
      * @return
      */
     Integer add(Blog blog);
+
+    /**
+     * 批量删除博客
+     * @param ids
+     */
+    Integer deleteBlogList(List<Integer> ids);
 }

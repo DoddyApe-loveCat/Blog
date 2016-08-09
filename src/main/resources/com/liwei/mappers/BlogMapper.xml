@@ -127,5 +127,15 @@
         values (#{title},#{summary},now(),0,0,#{content},#{blogType.id},#{keyword})
     </insert>
 
+    <!--
+    参考资料：MyBatis中的批量删除操作 - 程序之乐 - ITeye技术网站  http://zhaohuihugh.iteye.com/blog/1184378
+    -->
+    <delete id="deleteBlogList" parameterType="java.util.List">
+        DELETE FROM t_blog where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 
 </mapper>

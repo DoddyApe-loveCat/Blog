@@ -25,9 +25,13 @@
                 return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/" + row.id + ".html'>" + value + "</a>"
             }
 
-
-
-
+            /**
+             * 返回博客类型单元格格式化函数
+             * @param value
+             * @param row
+             * @param index
+             * @returns {string}
+             */
             function formatBlogType(value,row,index){
                 return value.typeName;
             }
@@ -61,11 +65,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
 
-
-
         $(function(){
-
-
             /**
              * 一些常见的选项 singleSelect:true 如果为true，则只允许选择一行。
              */
@@ -97,6 +97,39 @@
                     window.parent.openTab('修改博客','/admin/modifyBlog.jsp?id='+ checkRow.id,'icon-modify');
                 }
             });
+
+            $("#deleteAnyBlog").on("click",function(){
+                var checkRows = $('#blogManagerTable').datagrid("getChecked");
+                var willDelNum = checkRows.length;
+
+                if(willDelNum == 0){
+                    $.messager.alert('温馨提示','请选择需要删除的博客！','warning');
+                }else if(willDelNum > 0 ) {
+                    $.messager.confirm('确认对话框', '您想要删除这 <span style="color: red">' + willDelNum + '</span> 篇博客吗？', function(r){
+                        if (r){
+                            // $.messager.alert('温馨提示', '修改博客时所选的博客数量不能超过 1 ！');
+                            var willDelIds = [];
+                            for(var i=0;i<willDelNum;i++){
+                                willDelIds.push(checkRows[i].id);
+                            }
+                            var ids=willDelIds.join(",");
+                            $.get("${pageContext.request.contextPath}/admin/blog/deleteBlogList.do",{
+                                "ids":ids
+                            },function(data){
+                                if(data.success){
+                                    $.messager.alert('提示消息','删除成功！','info');
+                                    // 重载行。等同于'load'方法，但是它将保持在当前页。
+                                    // 注意：是表格重新加载，而不是删除按钮重新加载
+                                    $('#blogManagerTable').datagrid('reload');
+                                }else {
+                                    $.messager.alert('提示消息',data.errorInfo,'error');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
         });
     </script>
     </body>

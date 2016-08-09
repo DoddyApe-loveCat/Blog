@@ -47,7 +47,7 @@
         <tr>
             <td></td>
             <td>
-                <a id="publishBlog" href="#"  class="easyui-linkbutton" data-options="iconCls:'icon-publish-blog'">发表博客</a>
+                <a id="updateBlog" href="#"  class="easyui-linkbutton" data-options="iconCls:'icon-publish-blog'">更新博客</a>
             </td>
         </tr>
     </table>
@@ -131,7 +131,8 @@
     //
 
     $(function(){
-        $("#publishBlog").on("click",function(){
+
+        $("#updateBlog").on("click",function(){
             var title = $("#title").val();
             // 参考了官方的例子
             var blogTypeId = $("#blogTypeId").combobox('getValue');

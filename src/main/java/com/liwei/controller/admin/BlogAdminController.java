@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Liwei on 2016/8/7.
@@ -97,5 +94,26 @@ public class BlogAdminController {
         return blogService.findByBlogId(Integer.valueOf(blogId));
     }
 
+
+
+    @ResponseBody
+    @RequestMapping(value="/deleteBlogList")
+    public Map<String,Object> deleteBlogList(@RequestParam("ids") String ids){
+        logger.debug("前端传来的 id 列表 => " + ids);
+        String[] idsStrArr = ids.split(",");
+        List<Integer> idList = new ArrayList<>();
+        for(String id:idsStrArr){
+            idList.add(Integer.valueOf(id));
+        }
+        Integer delNum = blogService.deleteBlogList(idList);
+        Map<String,Object> result = new HashMap<>();
+        if(delNum>0){
+            result.put("success",true);
+        }else {
+            result.put("success",false);
+            result.put("errorInfo","服务端出错");
+        }
+        return result;
+    }
 
 }
