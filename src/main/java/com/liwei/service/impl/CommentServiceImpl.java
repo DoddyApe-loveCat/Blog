@@ -28,4 +28,19 @@ public class CommentServiceImpl implements CommentService{
     public Integer add(Comment comment) {
         return commentDao.add(comment);
     }
+
+    @Override
+    public Long getTotal(Map<String, Object> params) {
+        return commentDao.getTotal(params);
+    }
+
+    @Override
+    public Integer update(Comment comment) {
+        return commentDao.update(comment);
+    }
+
+    @Override
+    public Integer delete(Integer id) {
+        return commentDao.delete(id);
+    }
 }

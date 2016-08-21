@@ -22,4 +22,24 @@ public class LinkServiceImpl implements LinkService {
     public List<Link> list(Map<String, Object> params) {
         return linkDao.list(params);
     }
+
+    @Override
+    public Long getTotal(Map<String, Object> params) {
+        return linkDao.getTotal(params);
+    }
+
+    @Override
+    public Integer add(Link link) {
+        return linkDao.add(link);
+    }
+
+    @Override
+    public Integer update(Link link) {
+        return linkDao.update(link);
+    }
+
+    @Override
+    public Integer delete(Integer id) {
+        return linkDao.delete(id);
+    }
 }

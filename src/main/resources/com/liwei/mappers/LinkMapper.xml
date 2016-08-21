@@ -14,4 +14,40 @@
         order by orderNo
     </select>
 
+
+    <select id="getTotal" parameterType="map" resultType="long">
+        SELECT count(id) from t_link
+        <where>
+            <if test="linkName!= null">
+                linkName = #{linkName},
+            </if>
+            <if test="linkUrl!= null">
+                linkUrl = #{linkUrl},
+            </if>
+            <if test="orderNo!= null">
+                orderNo = #{orderNo},
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="Link">
+        update t_link
+        <set>
+            <if test="linkName!= null">
+                linkName = #{linkName},
+            </if>
+            <if test="linkUrl!= null">
+                linkUrl = #{linkUrl},
+            </if>
+            <if test="orderNo!= null">
+                orderNo = #{orderNo},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from t_link where id = #{id}
+    </delete>
+
 </mapper>

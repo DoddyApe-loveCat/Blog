@@ -45,4 +45,10 @@ public class BlogServiceImplTest {
         System.out.println("blog_type => " + blogType.getTypeName());
         System.out.println("blog_type_order => " + blogType.getOrderNo());
     }
+
+    @Test
+    public void testGetBlogNumByTypeId(){
+        Integer num = blogService.getBlogNumByTypeId(1);
+        System.out.println(num);
+    }
 }

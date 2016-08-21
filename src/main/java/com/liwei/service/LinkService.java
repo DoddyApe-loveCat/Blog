@@ -16,5 +16,13 @@ public interface LinkService {
      * @param params
      * @return
      */
-    public List<Link> list(Map<String,Object> params);
+    List<Link> list(Map<String,Object> params);
+
+    Long getTotal(Map<String,Object> params);
+
+    Integer add(Link link);
+
+    Integer update(Link link);
+
+    Integer delete(Integer id);
 }

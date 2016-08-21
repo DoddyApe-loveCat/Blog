@@ -3,6 +3,7 @@ package com.liwei.dao;
 import com.liwei.entity.BlogType;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Liwei on 2016/8/2.
@@ -17,5 +18,15 @@ public interface BlogTypeDao {
      * @return
      */
     public List<BlogType> countList();
+
+    List<BlogType> list(Map<String,Object> params);
+
+    Long getTotal(Map<String,Object> params);
+
+    Integer add(BlogType blogType);
+
+    Integer update(BlogType blogType);
+
+    Integer delete(Integer id);
 
 }
