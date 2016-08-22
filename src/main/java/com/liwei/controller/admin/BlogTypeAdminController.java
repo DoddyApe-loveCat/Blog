@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,5 +92,27 @@ public class BlogTypeAdminController {
         }
         return result;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/delete",method = RequestMethod.GET)
+    public Map<String,Object> delete(@RequestParam("deleteIdsStr") String ids){
+        logger.debug("deleteIdsStr => " + ids);
+        List<Integer> idList = new ArrayList<>();
+        String[] idStrArray = ids.split(",");
+        for(String id:idStrArray){
+            idList.add(Integer.parseInt(id));
+        }
+        Integer deleteNum = blogTypeService.deleteList(idList);
+
+        Map<String,Object> result = new HashMap<>();
+        if(deleteNum > 0){
+            result.put("success",true);
+            logger.debug("成为删除了 " + deleteNum + "条记录。");
+        }else {
+            result.put("success",false);
+            result.put("errorInfo","删除失败！");
+        }
+        return result;
+    };
 
 }

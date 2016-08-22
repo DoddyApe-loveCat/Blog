@@ -27,4 +27,5 @@ public interface BlogTypeService {
 
     Integer delete(Integer id);
 
+    Integer deleteList(List<Integer> idList);
 }

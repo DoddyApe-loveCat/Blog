@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,5 +77,16 @@ public class BlogTypeServiceTest {
         Integer blogTypeId = 7;
         Integer deleteNum = blogTypeService.delete(blogTypeId);
         System.out.println(deleteNum);
+    }
+
+    @Test
+    public void testDeleteList(){
+        List<Integer> blogTypeIdList = new ArrayList<>();
+        blogTypeIdList.add(14);
+        blogTypeIdList.add(15);
+        blogTypeIdList.add(16);
+        Integer deleteNum = blogTypeService.deleteList(blogTypeIdList);
+        System.out.println(deleteNum);
+
     }
 }

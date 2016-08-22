@@ -29,4 +29,6 @@ public interface BlogTypeDao {
 
     Integer delete(Integer id);
 
+    Integer deleteList(List<Integer> idList);
+
 }

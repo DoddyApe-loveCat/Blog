@@ -80,5 +80,11 @@
         delete from t_blogtype where id = #{id}
     </delete>
 
+    <delete id="deleteList" parameterType="list">
+        delete from t_blogtype where id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>

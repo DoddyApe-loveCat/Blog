@@ -114,7 +114,6 @@
                 $("#dialog").dialog("close");
             });
 
-
             $("#modifyBlogType").on("click",function(){
                 var selectedRows = $("#blogTypeManagerTable").datagrid("getSelections");
                 // alert(selectedRows.length);
@@ -131,6 +130,33 @@
                 url = "${pageContext.request.contextPath}/admin/blogType/add.do?id=" + row.id;
             });
 
+            $("#deleteBlogType").on("click",function(){
+                var selections = $("#blogTypeManagerTable").datagrid("getSelections");
+                if(selections.length == 0){
+                    $.messager.alert("系统提示","请至少选择一条数据！");
+                    return;
+                }
+                var deleteIds = [];
+                for(var i=0;i<selections.length;i++){
+                    deleteIds.push(selections[i].id);
+                }
+                var deleteIdsStr = deleteIds.join(",");
+                console.info(deleteIdsStr);
+                $.messager.confirm("系统提示！","您确定要删除这几条数据吗？",function(r){
+                   if(r){
+                       $.get("${pageContext.request.contextPath}/admin/blogType/delete.do",{
+                           "deleteIdsStr":deleteIdsStr
+                       },function(data){
+                            if(data.success){
+                                $.messager.alert("系统提示！","删除成功！");
+                                $("#blogTypeManagerTable").datagrid("reload");
+                            }else {
+                                $.messager.alert("系统提示！",data.errorInfo);
+                            }
+                       });
+                   }
+                });
+            });
 
         </script>
     </body>
