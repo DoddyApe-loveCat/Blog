@@ -3,6 +3,7 @@ package com.liwei.service.impl;
 import com.liwei.dao.CommentDao;
 import com.liwei.entity.Comment;
 import com.liwei.service.CommentService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,10 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Integer delete(Integer id) {
         return commentDao.delete(id);
+    }
+
+    @Override
+    public Integer batchUpdateState(@Param("ids") List<Integer> ids, @Param("state") Integer state) {
+        return commentDao.batchUpdateState(ids,state);
     }
 }

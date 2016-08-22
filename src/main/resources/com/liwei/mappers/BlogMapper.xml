@@ -11,6 +11,7 @@
         <result property="replyHit" column="reply_hit"/>
         <result property="content" column="content"/>
         <result property="keyword" column="key_word"/>
+        <!-- 【重要】所有的查询都成为了关联查询 -->
         <association property="blogType" column="type_id"
                      select="com.liwei.dao.BlogTypeDao.findById"></association>
     </resultMap>
@@ -140,6 +141,8 @@
     <select id="getBlogNumByTypeId" resultType="int" parameterType="int">
         select count(id) from t_blog where type_id = #{typeId}
     </select>
+
+
 
 
 </mapper>

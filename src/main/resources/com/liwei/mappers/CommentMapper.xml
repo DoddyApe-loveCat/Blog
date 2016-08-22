@@ -26,6 +26,9 @@
             </if>
         </where>
         order by comment_date desc
+        <if test="start!=null and pageSize!=null">
+            limit #{start},#{pageSize}
+        </if>
     </select>
 
     <insert id="add" parameterType="Comment">
@@ -80,5 +83,19 @@
         delete from t_comment
         where id = #{id}
     </delete>
+
+
+    <update id="batchUpdateState" parameterType="map">
+        update t_comment
+        <set>
+            <if test="state!=null">
+                state = #{state}
+            </if>
+        </set>
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 
 </mapper>

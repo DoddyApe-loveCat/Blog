@@ -46,7 +46,7 @@
                 <a href="#" onclick="javascript:openTab('博客类别管理','/admin/blogTypeManage.jsp','icon-blog-type-manager')" class="easyui-linkbutton" data-options="iconCls:'icon-blog-type-manager'">博客类别管理</a>
             </div>
             <div title="评论管理" data-options="iconCls:'icon-comment-manager'" style="overflow:auto;padding:10px;">
-                <a href="#" onclick="javascript:openTab('评论审核','/admin/commentReview.jsp.jsp','icon-comment-review')"
+                <a href="#" onclick="javascript:openTab('评论审核','/admin/commentReview.jsp','icon-comment-review')"
                    class="easyui-linkbutton"
                    data-options="iconCls:'icon-comment-review'">评论审核</a>
                 <a href="#" onclick="javascript:openTab('评论信息管理','/admin/commentManage.jsp','icon-comment-manager')" class="easyui-linkbutton" data-options="iconCls:'icon-comment-manager'">评论信息管理</a>

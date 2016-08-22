@@ -1,6 +1,7 @@
 package com.liwei.dao;
 
 import com.liwei.entity.Comment;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -44,4 +45,7 @@ public interface CommentDao {
      * @return
      */
     Integer delete(Integer id);
+
+
+    Integer batchUpdateState(@Param("ids") List<Integer> ids, @Param("state") Integer state);
 }
