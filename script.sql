@@ -36,7 +36,7 @@ drop table if exists t_comment;
 create table t_comment(
   id int(11) NOT NULL AUTO_INCREMENT comment 'id',
   PRIMARY KEY(id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 comemnt '评论表';
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '评论表';
 
 
 
