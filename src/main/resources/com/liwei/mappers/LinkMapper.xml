@@ -23,6 +23,9 @@
             </if>
         </where>
         order by orderNo
+        <if test="start!=null and pageSize!=null">
+            limit #{start},#{pageSize}
+        </if>
     </select>
 
 

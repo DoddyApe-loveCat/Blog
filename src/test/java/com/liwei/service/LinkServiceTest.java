@@ -54,6 +54,18 @@ public class LinkServiceTest {
     }
 
     @Test
+    public void testBatchAdd() throws Exception {
+        for(int i=0;i<18;i++){
+            Link link = new Link();
+            link.setOrderNo(6 + i);
+            link.setLinkUrl("http://www.baidu.com/");
+            link.setLinkName("百度 " + i);
+            Integer insertNum = linkService.add(link);
+            System.out.println(insertNum);
+        }
+    }
+
+    @Test
     public void testUpdate() throws Exception {
         Link link = new Link();
         link.setId(6);
