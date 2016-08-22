@@ -61,6 +61,7 @@
                 rownumbers:true,
                 pagination:true,
                 method:'get'
+                // fitColumns: true
             });
 
             // 弹出对话框

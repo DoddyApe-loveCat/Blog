@@ -113,7 +113,7 @@
                     "blog.id":"${blog.id}"
                 },function(data){
                     if(data.success){
-                        alert("提交评论成功！");
+                        alert("提交评论成功，等待管理员审核以后才会显示！");
                         location.reload(true);
                     }else {
                         alert(data.errorInfo);

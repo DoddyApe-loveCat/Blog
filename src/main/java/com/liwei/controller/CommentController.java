@@ -63,7 +63,7 @@ public class CommentController {
             // String userIp = request.getRemoteAddr();
             String userIp = request.getRemoteHost();
             comment.setUserIp(userIp);
-            comment.setState(1);
+            comment.setState(0);
             comment.setCommentDate(new Date());
             commentService.add(comment);
             map.put("success",true);

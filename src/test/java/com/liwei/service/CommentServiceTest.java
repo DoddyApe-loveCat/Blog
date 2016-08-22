@@ -79,6 +79,20 @@ public class CommentServiceTest {
         Integer updateNum =
         commentService.batchUpdateState(ids,state);
         System.out.println(updateNum);
-
     }
+
+    @Test
+    public void testBatchDelete(){
+        List<Integer> idList = new ArrayList<>();
+        idList.add(16);
+        idList.add(17);
+        idList.add(18);
+        idList.add(19);
+        Integer deleteNum = commentService.batchDelete(idList);
+        System.out.println(deleteNum);
+    }
+
+
+
+
 }

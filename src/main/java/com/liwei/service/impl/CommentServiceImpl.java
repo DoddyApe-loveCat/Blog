@@ -49,4 +49,9 @@ public class CommentServiceImpl implements CommentService{
     public Integer batchUpdateState(@Param("ids") List<Integer> ids, @Param("state") Integer state) {
         return commentDao.batchUpdateState(ids,state);
     }
+
+    @Override
+    public Integer batchDelete(List<Integer> idList) {
+        return commentDao.batchDelete(idList);
+    }
 }

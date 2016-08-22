@@ -55,4 +55,12 @@ public interface CommentService {
      * @return
      */
     Integer batchUpdateState(@Param("ids") List<Integer> ids, @Param("state") Integer state);
+
+    /**
+     * 批量删除评论
+     * @param idList
+     * @return
+     */
+    Integer batchDelete(List<Integer> idList);
+
 }

@@ -18,11 +18,11 @@
         FROM
             t_comment
         <where>
-            <if test="state !=null and state !=0 ">
+            <if test="state !=null">
                 AND state = #{state}
             </if>
-            <if test="blogId !=null and blogId !=''">
-                AND blog_id = #{blogId}
+            <if test="blog !=null">
+                AND blog_id = #{blog.id}
             </if>
         </where>
         order by comment_date desc
@@ -42,8 +42,8 @@
             <if test="userIp!=null">
                 user_ip = #{userIp}
             </if>
-            <if test="blogId!=null">
-                blog_id = #{blogId}
+            <if test="blog!=null">
+                blog_id = #{blog.id}
             </if>
             <if test="content!=null">
                 content = #{content}
@@ -63,8 +63,8 @@
             <if test="userIp!=null">
                 user_ip = #{userIp}
             </if>
-            <if test="blogId!=null">
-                blog_id = #{blogId}
+            <if test="blog!=null">
+                blog_id = #{blog.id}
             </if>
             <if test="content!=null">
                 content = #{content}
@@ -98,4 +98,11 @@
         </foreach>
     </update>
 
+    <delete id="batchDelete" parameterType="list">
+        delete from t_comment
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

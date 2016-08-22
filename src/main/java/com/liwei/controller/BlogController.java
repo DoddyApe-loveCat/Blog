@@ -51,7 +51,7 @@ public class BlogController {
 
         // 获取评论列表
         Map<String,Object> params = new HashMap<>();
-        params.put("blogId",blog.getId());
+        params.put("blog",blog);
         params.put("state","1");
         List<Comment> commentList = commentService.list(params);
         mav.addObject("commentList",commentList);

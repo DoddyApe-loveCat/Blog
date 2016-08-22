@@ -95,4 +95,33 @@ public class CommentAdminController {
         return result;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/delete")
+    public Map<String,Object> delete(
+            String ids
+    ){
+        String[] idsStr = ids.split(",");
+        Integer deleteNum = 0;
+
+        if(idsStr.length == 1){
+            deleteNum = commentService.delete(Integer.parseInt(idsStr[0]));
+        }else {
+            List<Integer> idList = new ArrayList<>();
+            for(String id:idsStr){
+                idList.add(Integer.parseInt(id));
+            }
+            deleteNum = commentService.batchDelete(idList);
+        }
+        Map<String,Object> result = new HashMap<>();
+        if(deleteNum > 0){
+            result.put("success",true);
+            result.put("successInfo","成功删除了 " + deleteNum + " 条数据。");
+        }else {
+            result.put("success",false);
+            result.put("errorInfo","删除失败。");
+        }
+        return result;
+
+    }
+
 }

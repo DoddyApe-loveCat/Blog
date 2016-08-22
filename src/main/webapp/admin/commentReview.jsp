@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/jquery-easyui-1.5/themes/default/easyui.css">
@@ -90,7 +89,6 @@
                         idArray.push(selections[i].id);
                     }
                     var ids = idArray.join(",");
-                    alert(ids);
                     $.messager.confirm("系统提示","您确定要审核这" + len +"条评论吗?",function (r) {
                         if(r){
                             $.get("${pageContext.request.contextPath}/admin/comment/review.do",{
@@ -98,17 +96,17 @@
                                 "state":state
                             },function (data) {
                                 if(data.success){
-                                    alert(data.successInfo);
+                                    $.messager.alert("系统提示",data.successInfo);
                                     $("#commentReviewTable").datagrid("reload");
                                 }else {
-                                    alert(data.errorInfo);
+                                    $.messager.alert("系统提示",data.errorInfo);
                                 }
 
                             });
                         }
                     });
                 }else {
-                    $.messager.alert("系统提示","请至选择一条数据!");
+                    $.messager.alert("系统提示","请至少选择一条数据!");
                 }
             }
         </script>
