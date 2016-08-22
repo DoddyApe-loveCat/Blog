@@ -9,8 +9,19 @@
         <result property="orderNo" column="orderNo"/>
     </resultMap>
 
-    <select id="list" resultMap="LinkResult">
+    <select id="list" parameterType="map" resultMap="LinkResult">
         SELECT * FROM t_link
+        <where>
+            <if test="linkName!= null">
+                linkName = #{linkName}
+            </if>
+            <if test="linkUrl!= null">
+                linkUrl = #{linkUrl}
+            </if>
+            <if test="orderNo!= null">
+                orderNo = #{orderNo}
+            </if>
+        </where>
         order by orderNo
     </select>
 
@@ -19,16 +30,21 @@
         SELECT count(id) from t_link
         <where>
             <if test="linkName!= null">
-                linkName = #{linkName},
+                linkName = #{linkName}
             </if>
             <if test="linkUrl!= null">
-                linkUrl = #{linkUrl},
+                linkUrl = #{linkUrl}
             </if>
             <if test="orderNo!= null">
-                orderNo = #{orderNo},
+                orderNo = #{orderNo}
             </if>
         </where>
     </select>
+
+    <insert id="add" parameterType="Link">
+        insert into t_link(linkName,linkUrl,orderNo)
+        values(#{linkName},#{linkUrl},#{orderNo})
+    </insert>
 
     <update id="update" parameterType="Link">
         update t_link
@@ -40,7 +56,7 @@
                 linkUrl = #{linkUrl},
             </if>
             <if test="orderNo!= null">
-                orderNo = #{orderNo},
+                orderNo = #{orderNo}
             </if>
         </set>
         where id = #{id}

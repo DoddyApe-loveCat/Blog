@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:application.xml"})
-public class BlogServiceImplTest {
+public class BlogServiceTest {
 
 
     @Autowired

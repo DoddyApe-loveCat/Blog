@@ -37,19 +37,19 @@
         select count(id) from t_comment
         <where>
             <if test="userIp!=null">
-                user_ip = #{userIp},
+                user_ip = #{userIp}
             </if>
             <if test="blogId!=null">
-                blog_id = #{blogId},
+                blog_id = #{blogId}
             </if>
             <if test="content!=null">
-                content = #{content},
+                content = #{content}
             </if>
             <if test="commentDate!=null">
-                comment_date = #{commentDate},
+                comment_date = #{commentDate}
             </if>
             <if test="state!=null">
-                state = #{state},
+                state = #{state}
             </if>
         </where>
     </select>
@@ -58,19 +58,19 @@
         update t_comment
         <set>
             <if test="userIp!=null">
-                user_ip = #{userIp},
+                user_ip = #{userIp}
             </if>
             <if test="blogId!=null">
-                blog_id = #{blogId},
+                blog_id = #{blogId}
             </if>
             <if test="content!=null">
-                content = #{content},
+                content = #{content}
             </if>
             <if test="commentDate!=null">
-                comment_date = #{commentDate},
+                comment_date = #{commentDate}
             </if>
             <if test="state!=null">
-                state = #{state},
+                state = #{state}
             </if>
         </set>
         WHERE id = #{id}
