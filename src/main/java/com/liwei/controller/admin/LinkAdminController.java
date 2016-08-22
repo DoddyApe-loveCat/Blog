@@ -45,7 +45,17 @@ public class LinkAdminController {
         result.put("total",total);
         result.put("rows",linkList);
         return result;
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    public Map<String,Object> save(Link link){
+        Integer updateNum = linkService.add(link);
+        logger.debug("updateNum => " + updateNum);
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("success",true);
+        return result;
     }
 
 }
