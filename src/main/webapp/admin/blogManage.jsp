@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Liwei
-  Date: 2016/8/6
-  Time: 22:29
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- 博客管理子选项卡，实现博客的修改与删除 --%>
 <html>
@@ -52,7 +45,6 @@
             </thead>
         </table>
 
-
         <%-- 上面 datagrid 的工具栏--%>
         <div id="blogOper">
             <%-- plain boolean 为true时显示简洁效果。  --%>
@@ -76,8 +68,7 @@
                 pagination:true,
                 toolbar:'#blogOper',
                 url:'${pageContext.request.contextPath}/admin/blog/list.do',
-                method:'get',
-
+                method:'get'
             });
 
 

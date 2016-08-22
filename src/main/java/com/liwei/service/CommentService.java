@@ -25,4 +25,25 @@ public interface CommentService {
      * @return
      */
     Integer add(Comment comment);
+
+    /**
+     * 根据条件查询评论总数
+     * @param params
+     * @return
+     */
+    Long getTotal(Map<String,Object> params);
+
+    /**
+     * 更新单条评论
+     * @param comment
+     * @return
+     */
+    Integer update(Comment comment);
+
+    /**
+     * 删除单条评论
+     * @param id
+     * @return
+     */
+    Integer delete(Integer id);
 }

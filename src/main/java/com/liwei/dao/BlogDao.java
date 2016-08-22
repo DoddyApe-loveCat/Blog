@@ -24,8 +24,6 @@ public interface BlogDao {
      */
     Blog findByBlogId(Integer id);
 
-
-
     List<Blog> list(Map<String,Object> params);
 
     Long getTotal(Map<String,Object> params);
@@ -62,4 +60,11 @@ public interface BlogDao {
      * @param ids
      */
     Integer deleteBlogList(List<Integer> ids);
+
+    /**
+     * 查询指定的博客类别下的博客数量
+     * @param typeId
+     * @return
+     */
+    Integer getBlogNumByTypeId(Integer typeId);
 }

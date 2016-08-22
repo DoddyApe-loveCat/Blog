@@ -30,4 +30,61 @@
         where id= #{id}
     </select>
 
+    <select id="list" parameterType="map" resultMap="BlogTypeResultMap">
+        SELECT id,type_name,order_no
+        FROM t_blogtype
+        <where>
+            <if test="typeName != null and typeName !=''">
+                type_name = #{typeName}
+            </if>
+            <if test="orderNo != null and orderNo !=''">
+                order_no = #{orderNo}
+            </if>
+        </where>
+        <if test="start!=null and pageSize !=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="int" resultType="long">
+        SELECT count(id)
+        FROM t_blogtype
+        <where>
+            <if test="typeName != null and typeName !=''">
+                type_name = #{typeName}
+            </if>
+            <if test="orderNo != null and orderNo !=''">
+                order_no = #{orderNo}
+            </if>
+        </where>
+    </select>
+
+    <!-- 无须声明返回值类型 -->
+    <insert id="add" parameterType="BlogType">
+        insert into t_blogtype(type_name,order_no)
+        values(#{typeName},#{orderNo})
+    </insert>
+
+    <!-- 无须声明返回值类型 -->
+    <update id="update" parameterType="BlogType">
+        update t_blogtype
+        <set>
+            <if test="typeName != null">type_name=#{typeName},</if>
+            <if test="orderNo != null">order_no=#{orderNo},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 无须声明返回值类型 -->
+    <delete id="delete" parameterType="int">
+        delete from t_blogtype where id = #{id}
+    </delete>
+
+    <delete id="deleteList" parameterType="list">
+        delete from t_blogtype where id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>

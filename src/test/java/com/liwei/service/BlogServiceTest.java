@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:application.xml"})
-public class BlogServiceImplTest {
+public class BlogServiceTest {
 
 
     @Autowired
@@ -44,5 +44,11 @@ public class BlogServiceImplTest {
         BlogType blogType = blog1.getBlogType();
         System.out.println("blog_type => " + blogType.getTypeName());
         System.out.println("blog_type_order => " + blogType.getOrderNo());
+    }
+
+    @Test
+    public void testGetBlogNumByTypeId(){
+        Integer num = blogService.getBlogNumByTypeId(1);
+        System.out.println(num);
     }
 }

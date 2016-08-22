@@ -33,4 +33,52 @@
         values(#{userIp},#{content},#{commentDate},#{state},#{blog.id})
     </insert>
 
+    <select id="getTotal" parameterType="map" resultType="long">
+        select count(id) from t_comment
+        <where>
+            <if test="userIp!=null">
+                user_ip = #{userIp}
+            </if>
+            <if test="blogId!=null">
+                blog_id = #{blogId}
+            </if>
+            <if test="content!=null">
+                content = #{content}
+            </if>
+            <if test="commentDate!=null">
+                comment_date = #{commentDate}
+            </if>
+            <if test="state!=null">
+                state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="Comment">
+        update t_comment
+        <set>
+            <if test="userIp!=null">
+                user_ip = #{userIp}
+            </if>
+            <if test="blogId!=null">
+                blog_id = #{blogId}
+            </if>
+            <if test="content!=null">
+                content = #{content}
+            </if>
+            <if test="commentDate!=null">
+                comment_date = #{commentDate}
+            </if>
+            <if test="state!=null">
+                state = #{state}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from t_comment
+        where id = #{id}
+    </delete>
+
 </mapper>
