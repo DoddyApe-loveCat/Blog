@@ -140,19 +140,26 @@
                 if(len == 0){
                     $.messager.alert("系统提示","请至少选择一条数据！");
                 }else{
-                    var ids = [];
-                    for(var i = 0;i<len;i++){
-                        ids.push(selections[i].id);
-                    }
-                    var idsStr = ids.join(",");
-                    $.get("${pageContext.request.contextPath}/admin/link/delete.do",{"ids":idsStr},function(data){
-                        if(data.success){
-                            $.messager.alert("系统提示",data.successInfo);
-                            $("#linkManagerTable").datagrid("reload");
-                        }else {
-                            $.messager.alert("系统提示",data.errorInfo);
+
+                    $.messager.confirm("系统提示","您确定要删除这 " + len + "条数据吗?",function (r) {
+                        if(r){
+                            var ids = [];
+                            for(var i = 0;i<len;i++){
+                                ids.push(selections[i].id);
+                            }
+                            var idsStr = ids.join(",");
+                            $.get("${pageContext.request.contextPath}/admin/link/delete.do",{"ids":idsStr},function(data){
+                                if(data.success){
+                                    $.messager.alert("系统提示",data.successInfo);
+                                    $("#linkManagerTable").datagrid("reload");
+                                }else {
+                                    $.messager.alert("系统提示",data.errorInfo);
+                                }
+                            });
                         }
                     });
+
+
                 }
             });
 

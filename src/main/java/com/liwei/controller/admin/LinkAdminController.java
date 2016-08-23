@@ -53,7 +53,7 @@ public class LinkAdminController {
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public Map<String,Object> save(Link link){
         Integer updateNum = 0;
-        if(link.getId() == 0){
+        if(link.getId() == null){
             updateNum = linkService.add(link);
         }else {
             updateNum = linkService.update(link);
