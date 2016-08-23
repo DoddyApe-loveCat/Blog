@@ -21,7 +21,7 @@
         <div id="linkManagerToolbar">
             <a id="openAddDialog" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
             <a id="openUpdateDialog" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
-            <a id="c" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
+            <a id="linkDelete" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
         </div>
 
 
@@ -60,6 +60,9 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.5/jquery.easyui.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
         <script type="text/javascript">
+
+            var url = "${pageContext.request.contextPath}/admin/link/save.do";
+
             $("#linkManagerTable").datagrid({
                 "fit":true,
                 "toolbar":"#linkManagerToolbar",
@@ -79,6 +82,7 @@
             });
 
             $("#openAddDialog").on("click",function(){
+                url = "${pageContext.request.contextPath}/admin/link/save.do";
                 $("#dialog").dialog('open');
             });
 
@@ -88,31 +92,69 @@
                 if(len !=1){
                     $.messager.alert("系统提示","请只选择一条数据！");
                 }else {
+                    var row = selections[0];
+                    url = "${pageContext.request.contextPath}/admin/link/save.do?id=" + row.id;
                     $("#dialog").dialog('open');
-                    $('#linkFrom').form('load',selections[0]);
+                    $('#linkFrom').form('load',row);
                 }
 
             });
 
-
             $("#linkSave").on("click",function(){
+                // submit the form
+                $("#linkFrom").form("submit",{
+                    "url":url,
+                    "onSubmit":function(){
 
-                $('#linkFrom').form({
-                    "url":"${pageContext.request.contextPath}/admin/link/save.do",
-                    "onSubmit": function(){
                     },
                     "success":function(data){
-                        alert(data)
+                        console.info(data);
+                        data = eval("(" + data + ")");
+                        if(data.success){
+                            $.messager.alert("系统提示",data.successInfo);
+                            // 关闭对话框
+                            $("#dialog").dialog("close");
+                            //
+                            $("#linkManagerTable").datagrid("reload");
+
+                            // reset
+                            $("#linkName").val("");
+                            $("#linkUrl").val("");
+                            $("#orderNo").val("");
+                        }else {
+                            $.messager.alert("系统提示",data.errorInfo);
+                        }
                     }
                 });
-                // submit the form
-                $('#linkFrom').submit();
+            });
+
+            $("#linkCancel").on("click",function(){
+                // 关闭对话框
+                $("#dialog").dialog("close");
             });
 
 
-            function saveOrUpdate(state){
-
-            };
+            $("#linkDelete").on("click",function(){
+                var selections = $("#linkManagerTable").datagrid("getSelections");
+                var len = selections.length;
+                if(len == 0){
+                    $.messager.alert("系统提示","请至少选择一条数据！");
+                }else{
+                    var ids = [];
+                    for(var i = 0;i<len;i++){
+                        ids.push(selections[i].id);
+                    }
+                    var idsStr = ids.join(",");
+                    $.get("${pageContext.request.contextPath}/admin/link/delete.do",{"ids":idsStr},function(data){
+                        if(data.success){
+                            $.messager.alert("系统提示",data.successInfo);
+                            $("#linkManagerTable").datagrid("reload");
+                        }else {
+                            $.messager.alert("系统提示",data.errorInfo);
+                        }
+                    });
+                }
+            });
 
         </script>
     </body>

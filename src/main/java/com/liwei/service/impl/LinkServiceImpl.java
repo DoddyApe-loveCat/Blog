@@ -42,4 +42,9 @@ public class LinkServiceImpl implements LinkService {
     public Integer delete(Integer id) {
         return linkDao.delete(id);
     }
+
+    @Override
+    public Integer batchDelete(List<Integer> idList) {
+        return linkDao.batchDelete(idList);
+    }
 }

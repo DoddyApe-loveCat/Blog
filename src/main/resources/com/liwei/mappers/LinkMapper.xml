@@ -69,4 +69,12 @@
         delete from t_link where id = #{id}
     </delete>
 
+
+    <delete id="batchDelete" parameterType="list">
+        delete from t_link where id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>

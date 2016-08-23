@@ -25,4 +25,6 @@ public interface LinkService {
     Integer update(Link link);
 
     Integer delete(Integer id);
+
+    Integer batchDelete(List<Integer> idList);
 }
