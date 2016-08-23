@@ -1,5 +1,11 @@
 # Blog 项目
 
+首页：http://localhost:8080/index.html
+后台登陆：http://localhost:8080/login.jsp
+
+Spring MVC 通过@Value注解读取.properties配置
+http://blog.csdn.net/white__cat/article/details/42103155
+
 servlet，jsp，jstl 的依赖范围要关注一下。
 自定义的 Realm extends AuthorizingRealm，不是使用实现。
 
