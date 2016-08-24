@@ -3,6 +3,7 @@ package com.liwei.controller.admin;
 import com.liwei.entity.Blogger;
 import com.liwei.service.BloggerService;
 
+import com.liwei.util.CryptographyUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,7 @@ public class BloggerAdminController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "save")
+    @RequestMapping(value = "/save")
     public Map<String,Object> save(Blogger blogger){
         logger.debug("id => " + blogger.getId());
         Integer upateNumber = null;
@@ -50,6 +51,30 @@ public class BloggerAdminController {
         }else {
             result.put("success",false);
             result.put("errorInfo","修改博主信息失败！");
+        }
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/modifyPassword")
+    public Map<String,Object> modifyPassword(
+
+            String bloggerId,
+            String newPassword){
+        logger.debug("bloggerId => " + bloggerId);
+        String newPasswordCrypt = CryptographyUtil.md5(newPassword,"liwei");
+        Blogger blogger = new Blogger();
+        blogger.setId(Integer.parseInt(bloggerId));
+        blogger.setPassword(newPasswordCrypt);
+        Integer updateNum = bloggerService.update(blogger);
+
+        Map<String,Object> result = new HashMap<>();
+        if(updateNum>0){
+            result.put("success",true);
+            result.put("successInfo","修改密码成功!");
+        }else {
+            result.put("success",false);
+            result.put("errorInfo","修改密码失败!");
         }
         return result;
     }

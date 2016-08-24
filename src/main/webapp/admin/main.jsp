@@ -58,9 +58,7 @@
                 <a href="#" onclick="javascript:openTab('友情链接管理','/admin/linkManager.jsp','icon-link-manager')"
                    class="easyui-linkbutton"
                    data-options="iconCls:'icon-link-manager'">友情链接管理</a>
-                <a href="#" onclick="javascript:openTab('修改密码','/admin/modifyPassword.jsp','icon-modify-password')"
-                   class="easyui-linkbutton"
-                   data-options="iconCls:'icon-modify-password'">修改密码</a>
+                <a id="modifyPassword" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-modify-password'">修改密码</a>
                 <a href="#" onclick="javascript:openTab('刷新系统缓存','/admin/reflashCached.jsp','icon-reflash-cached')"
                    class="easyui-linkbutton"
                    data-options="iconCls:'icon-reflash-cached'">刷新系统缓存</a>
@@ -93,13 +91,44 @@
     </div>
 
     
+    <div id="passwdDialog" class="easyui-dialog" data-options="closed:true,toolbar:'#password-toolbar'" style="width: 300px;height: 180px">
+        <form id="passwdForm" method="post">
+            <table cellspacing="10px">
+                <tr>
+                    <td>用户名:</td>
+                    <td>
+                        <input type="text" value="${blogger.userName}" id="userName" name="userName" readonly="readonly">
+                    </td>
+                </tr>
+                <tr>
+                    <td>新密码:</td>
+                    <td>
+                        <input type="password" id="newPassword" name="newPassword">
+                    </td>
+                </tr>
+                <tr>
+                    <td>新密码确认:</td>
+                    <td>
+                        <input type="password" id="newPasswordCheck">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 
+    <div id="password-toolbar">
+        <a id="saveNewPasswd" class="easyui-linkbutton" iconCls="icon-save">保存</a>
+        <a id="cancel" class="easyui-linkbutton" iconCls="icon-cancel">取消</a>
+    </div>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.5/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
 
     <script type="text/javascript">
+
+        var url ;
+
         /**
          *
          * @param text 面板的名称
@@ -120,6 +149,43 @@
 
             }
         }
+
+
+        $("#modifyPassword").on("click",function () {
+            $("#passwdDialog").dialog("open").dialog("setTitle","请填写新密码");
+            url = "${pageContext.request.contextPath}/admin/blogger/modifyPassword.do"
+        });
+
+        $("#saveNewPasswd").on("click",function () {
+            $("#passwdForm").form("submit",{
+                "url":url,
+                "onSubmit":function(param){
+                    param.bloggerId = "${blogger.id}";
+                    var newPassword = $("#newPassword").val();
+                    var newPasswordCheck = $("#newPasswordCheck").val();
+                    if(newPassword === newPasswordCheck){
+                        return true;
+                    }else {
+                        $.messager.alert("系统提示","两次输入的密码不一致!");
+                        return false;
+                    }
+                },
+                "success":function (data) {
+                    data = eval("(" + data +")");
+                    if(data.success){
+                        $.messager.alert("系统提示",data.successInfo);
+                        $("#passwdDialog").dialog("close");
+                    }else {
+                        $.messager.alert("系统提示",data.errorInfo);
+                    }
+                }
+            });
+        });
+
+        $("#cancel").on("click",function () {
+           $("#passwdDialog").dialog("close");
+        });
+
     </script>
 </body>
 </html>
