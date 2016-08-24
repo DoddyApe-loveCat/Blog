@@ -103,13 +103,13 @@
                 <tr>
                     <td>新密码:</td>
                     <td>
-                        <input type="password" id="newPassword" name="newPassword">
+                        <input type="password" class="easyui-validatebox" id="newPassword" name="newPassword" data-options="required:true,validType:'minLength[5]'">
                     </td>
                 </tr>
                 <tr>
                     <td>新密码确认:</td>
                     <td>
-                        <input type="password" id="newPasswordCheck">
+                        <input type="password" class="easyui-validatebox" id="newPasswordCheck"  required="required" validType="equals['#newPassword']">
                     </td>
                 </tr>
             </table>
@@ -160,14 +160,20 @@
             $("#passwdForm").form("submit",{
                 "url":url,
                 "onSubmit":function(param){
-                    param.bloggerId = "${blogger.id}";
-                    var newPassword = $("#newPassword").val();
-                    var newPasswordCheck = $("#newPasswordCheck").val();
-                    if(newPassword === newPasswordCheck){
-                        return true;
+                    var isValid = $(this).form("validate");
+                    if(isValid){
+                        param.bloggerId = "${blogger.id}";
+                        /*var newPassword = $("#newPassword").val();
+                        var newPasswordCheck = $("#newPasswordCheck").val();
+                        if(newPassword === newPasswordCheck){
+                            return true;
+                        }else {
+                            $.messager.alert("系统提示","两次输入的密码不一致!");
+                            return false;
+                        }*/
+                        return isValid;
                     }else {
-                        $.messager.alert("系统提示","两次输入的密码不一致!");
-                        return false;
+                        return isValid;
                     }
                 },
                 "success":function (data) {
@@ -184,6 +190,26 @@
 
         $("#cancel").on("click",function () {
            $("#passwdDialog").dialog("close");
+        });
+
+
+
+        $.extend($.fn.validatebox.defaults.rules, {
+            equals: {
+                validator: function(value,param){
+                    return value == $(param[0]).val();
+                },
+                message: '两次输入的密码不一致!'
+            }
+        });
+
+        $.extend($.fn.validatebox.defaults.rules, {
+            minLength: {
+                validator: function(value, param){
+                    return value.length >= param[0];
+                },
+                message: '请输入至少 {0} 个字符。'
+            }
         });
 
     </script>
