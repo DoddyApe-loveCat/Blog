@@ -59,10 +59,10 @@
                    class="easyui-linkbutton"
                    data-options="iconCls:'icon-link-manager'">友情链接管理</a>
                 <a id="modifyPassword" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-modify-password'">修改密码</a>
-                <a href="#" onclick="javascript:openTab('刷新系统缓存','/admin/reflashCached.jsp','icon-reflash-cached')"
+                <a href="#" id="refreshSystemCache"
                    class="easyui-linkbutton"
                    data-options="iconCls:'icon-reflash-cached'">刷新系统缓存</a>
-                <a href="#" onclick="javascript:openTab('安全退出','/admin/logout.jsp','icon-logout')"
+                <a href="#" id="logout"
                    class="easyui-linkbutton"
                    data-options="iconCls:'icon-logout'">安全退出</a>
 
@@ -211,6 +211,17 @@
                 message: '请输入至少 {0} 个字符。'
             }
         });
+
+        $("#refreshSystemCache").on("click",function () {
+           $.get("${pageContext.request.contextPath}/admin/system/refreshCache.do",function () {
+              $.messager.alert("系统提示","刷新缓存成功!");
+           });
+        });
+
+        $("#logout").on("click",function () {
+           alert("logout");
+        });
+
 
     </script>
 </body>
