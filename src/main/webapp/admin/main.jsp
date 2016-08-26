@@ -219,7 +219,10 @@
         });
 
         $("#logout").on("click",function () {
-           alert("logout");
+            // 因为页面要跳转,所以不能使用 ajax
+            // $.get("${pageContext.request.contextPath}/admin/blogger/logout.do");
+            window.location.href = "${pageContext.request.contextPath}/admin/blogger/logout.do";
+
         });
 
 

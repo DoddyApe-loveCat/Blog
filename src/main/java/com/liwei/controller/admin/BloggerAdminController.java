@@ -5,6 +5,8 @@ import com.liwei.service.BloggerService;
 
 import com.liwei.util.CryptographyUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +79,14 @@ public class BloggerAdminController {
             result.put("errorInfo","修改密码失败!");
         }
         return result;
+    }
+
+
+    @RequestMapping("/logout")
+    public String logout(){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "login";
     }
 
 }
