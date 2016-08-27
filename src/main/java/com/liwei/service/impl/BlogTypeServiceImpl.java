@@ -53,4 +53,11 @@ public class BlogTypeServiceImpl implements BlogTypeService{
     public Integer deleteList(List<Integer> idList) {
         return blogTypeDao.deleteList(idList);
     }
+
+    @Override
+    public List<BlogType> findAll() {
+        return blogTypeDao.findAll();
+    }
+
+
 }

@@ -113,6 +113,13 @@ public class BlogTypeAdminController {
             result.put("errorInfo","删除失败！");
         }
         return result;
-    };
+    }
+
+    @ResponseBody
+    @RequestMapping("/findAll")
+    public List<BlogType> findAll(){
+        List<BlogType> blogTypeList = blogTypeService.findAll();
+        return blogTypeList;
+    }
 
 }

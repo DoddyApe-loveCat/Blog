@@ -2,6 +2,7 @@ package com.liwei.lucene;
 
 import com.liwei.entity.Blog;
 import com.liwei.entity.BlogType;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.TokenStream;
@@ -17,6 +18,11 @@ import org.apache.lucene.search.*;
 import org.apache.lucene.search.highlight.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -24,13 +30,30 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by Liwei on 2016/8/22.
  */
 public class BlogIndex {
 
-    private String indexDir = "/lucene/";
+    private static String indexDir;
+
+    private static final Logger logger = LoggerFactory.getLogger(BlogIndex.class);
+
+    static {
+        // 参考资料:http://outofmemory.cn/code-snippet/2770/Spring-usage-program-mode-duqu-properties-file
+        if(indexDir == null){
+            Resource resource = new ClassPathResource("config/config.properties");
+            try {
+                Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+                indexDir = properties.getProperty("index.dir");
+                logger.info("logger => " + indexDir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private Directory directory;
 

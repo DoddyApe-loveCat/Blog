@@ -51,6 +51,7 @@ public class IndexController {
     @Value("#{configProperties['startLearnJavaDay']}")
     private String startLearnJavaDay;
 
+
     /**
      * 请求主页
      * @param page

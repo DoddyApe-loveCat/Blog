@@ -9,6 +9,13 @@
     </resultMap>
 
 
+    <select id="findAll" resultMap="BlogTypeResultMap">
+        SELECT
+            id,type_name
+        FROM
+            t_blogtype
+    </select>
+
     <!-- 统计每个 type_name 有多少篇博文 -->
     <select id="countList" resultMap="BlogTypeResultMap">
         SELECT

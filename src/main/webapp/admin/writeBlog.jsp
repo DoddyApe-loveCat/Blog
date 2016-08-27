@@ -22,9 +22,9 @@
                     <%-- 可以设置下拉选择框的高度和宽度自适应--%>
                     <select id="blogTypeId" class="easyui-combobox" name="blogType.id" panelWidth="auto" panelHeight="auto">
                             <option>请选择博客类型：</option>
-                        <c:forEach items="${blogTypeCountList}" var="blogType">
+                        <%--<c:forEach items="${blogTypeCountList}" var="blogType">
                             <option value="${blogType.id}">${blogType.typeName}</option>
-                        </c:forEach>
+                        </c:forEach>--%>
                     </select>
                 </td>
             </tr>
@@ -88,7 +88,7 @@
             }
 
 
-           $("#publishBlog").on("click",function(){
+            $("#publishBlog").on("click",function(){
                var title = $("#title").val();
                // 参考了官方的例子
                var blogTypeId = $("#blogTypeId").combobox('getValue');
@@ -122,7 +122,14 @@
                        }
                    },"json");
                }
-           });
+            });
+
+            $("#blogTypeId").combobox({
+                url:'${pageContext.request.contextPath}/admin/blogType/findAll.do',
+                valueField:"id",
+                textField:"typeName"
+            });
+
         });
     </script>
 </body>

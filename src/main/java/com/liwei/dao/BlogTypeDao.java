@@ -17,7 +17,7 @@ public interface BlogTypeDao {
      * 查看所有的博客类型，以及对应的博客数量
      * @return
      */
-    public List<BlogType> countList();
+    List<BlogType> countList();
 
     List<BlogType> list(Map<String,Object> params);
 
@@ -30,5 +30,7 @@ public interface BlogTypeDao {
     Integer delete(Integer id);
 
     Integer deleteList(List<Integer> idList);
+
+    List<BlogType> findAll();
 
 }

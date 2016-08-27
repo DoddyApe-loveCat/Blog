@@ -38,6 +38,9 @@ public class BlogAdminController {
     @ResponseBody
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public Map<String,Object> save(Blog blog){
+
+        blog.setReleaseDate(new Date());
+
         int resultTotal = 0;
         // 如果不带 id，就表明是一个新增的方法
         if(blog.getId() == null){
