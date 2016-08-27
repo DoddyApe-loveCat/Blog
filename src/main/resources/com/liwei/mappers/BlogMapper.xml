@@ -91,7 +91,9 @@
             <if test="blogType.id != null">
                 type_id = #{blogType.id},
             </if>
-                release_date = now()
+            <if test="releaseDate !=null">
+                release_date = #{releaseDate}
+            </if>
         </set>
         <where>
             <if test="id !=null and id!=''">
