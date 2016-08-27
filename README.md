@@ -1,5 +1,11 @@
 # Blog 项目
 
+## 遗留问题
+1. 输入博客内容,方便测试搜索;
+2. MySQL 事务未配置;
+3. 加索引的时候要讲文本去格式化。
+
+
 首页：http://localhost:8080/index.html
 后台登陆：http://localhost:8080/login.jsp
 
