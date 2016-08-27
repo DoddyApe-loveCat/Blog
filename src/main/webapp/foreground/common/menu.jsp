@@ -39,9 +39,9 @@
                     </ul>
 
                     <%-- 导航栏中的表单，浮动到右边 --%>
-                    <form class="navbar-form navbar-right" role="search">
+                    <form action="${pageContext.request.contextPath}/blog/q.html" class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="请输入要查询的关键字">
+                            <input type="text" name="q" value="${q}" class="form-control" placeholder="请输入要查询的关键字">
                         </div>
                         <button type="submit" class="btn btn-default">搜索</button>
                     </form>

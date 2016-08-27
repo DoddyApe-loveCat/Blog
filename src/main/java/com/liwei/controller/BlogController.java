@@ -2,13 +2,17 @@ package com.liwei.controller;
 
 import com.liwei.entity.Blog;
 import com.liwei.entity.Comment;
+import com.liwei.lucene.BlogIndex;
 import com.liwei.service.BlogService;
 import com.liwei.service.CommentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -27,6 +31,8 @@ public class BlogController {
 
     @Autowired
     private CommentService commentService;
+
+    private BlogIndex blogIndex = new BlogIndex();
 
     /**
      * 请求博客具体信息
@@ -90,5 +96,26 @@ public class BlogController {
         }
         pageCode.append("</p>");
         return pageCode.toString();
+    }
+
+    @RequestMapping(value = "/q",method = RequestMethod.GET)
+    public ModelAndView search(
+            String q,
+            String page,
+            HttpServletRequest request
+    ){
+        Integer pageSize = 3;
+        page = StringUtils.isBlank(page) ? "1":page;
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("pageTitle","");
+        mav.addObject("mainPage","foreground/blog/result.jsp");
+        List<Blog> blogList = blogIndex.searchBlog(q);
+
+        mav.addObject("blogList",blogList);
+        mav.addObject("q",q);
+        mav.addObject("resultTotal",blogList.size());
+        mav.setViewName("mainTemp");
+        return mav;
     }
 }
