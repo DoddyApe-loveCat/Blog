@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.liwei.entity.Blog;
 import com.liwei.entity.PageBean;
+import com.liwei.lucene.BlogIndex;
 import com.liwei.service.BlogService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -32,6 +33,8 @@ public class BlogAdminController {
     @Autowired
     private BlogService blogService;
 
+    private BlogIndex blogIndex = new BlogIndex();
+
     @ResponseBody
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public Map<String,Object> save(Blog blog){
@@ -39,9 +42,16 @@ public class BlogAdminController {
         // 如果不带 id，就表明是一个新增的方法
         if(blog.getId() == null){
             resultTotal = blogService.add(blog);
+
+            // 添加索引
+            blogIndex.addIndex(blog);
+
         }else{
             // 如果带上 id ，就表明是一个修改方法
             resultTotal = blogService.update(blog);
+
+            // 更新索引
+            blogIndex.updateIndex(blog);
         }
         Map<String,Object> result = new HashMap<>();
         if(resultTotal > 0 ){
@@ -104,6 +114,10 @@ public class BlogAdminController {
         List<Integer> idList = new ArrayList<>();
         for(String id:idsStrArr){
             idList.add(Integer.valueOf(id));
+
+            // 批量删除索引
+            blogIndex.deleteIndex(id);
+
         }
         Integer delNum = blogService.deleteBlogList(idList);
         Map<String,Object> result = new HashMap<>();
