@@ -53,7 +53,7 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <img style="height: 300px;" src="${pageContext.request.contextPath}/static/userImages/liwei.jpg">
+                        <img style="height: 235px;" src="${pageContext.request.contextPath}/static/userImages/liwei.jpg">
                         <div align="center">
                             ${blogger.nickName}
                         </div>

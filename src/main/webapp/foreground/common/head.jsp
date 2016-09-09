@@ -8,6 +8,10 @@
     <div class="col-md-8 pull-right">
         <div>
             <%--<p class="text-right">向右对齐文本</p>--%>
+            <p class="text-right">
+                <a href="${pageContext.request.contextPath}/login.jsp">进入后台</a>
+            </p>
+
             <p class="text-right">您已经出生 ${passedDayNumBirth} 天。</p>
             <p class="text-right">您学习 Java 已经 ${passedDayNumJava} 天。</p>
         </div>
