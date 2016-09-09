@@ -3,7 +3,7 @@ package com.liwei.entity;
 import java.util.Date;
 
 /**
- * 博客实体
+ * 博客实体（一篇博客文章就是一个博客实体对象）
  * Created by Liwei on 2016/8/2.
  */
 public class Blog {
@@ -35,6 +35,14 @@ public class Blog {
      * 博客内容
      */
     private String content;
+
+    /**
+     * 博客实体内容，
+     * 无网页标签，用于添加 Lucene 索引和查询
+     */
+    private String contextNoTag;
+
+
     /**
      * 博客类型
      */
@@ -139,6 +147,14 @@ public class Blog {
 
     public void setReleaseDateStr(String releaseDateStr) {
         this.releaseDateStr = releaseDateStr;
+    }
+
+    public void setContextNoTag(String contextNoTag) {
+        this.contextNoTag = contextNoTag;
+    }
+
+    public String getContextNoTag() {
+        return contextNoTag;
     }
 
     @Override

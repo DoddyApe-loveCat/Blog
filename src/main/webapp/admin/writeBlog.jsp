@@ -87,7 +87,7 @@
                 $("#keyword").textbox('setValue','');
             }
 
-
+            // 为“发布博客”按钮绑定了单击事件
             $("#publishBlog").on("click",function(){
                var title = $("#title").val();
                // 参考了官方的例子
@@ -103,12 +103,14 @@
                    alert("请填写博客内容！");
                }else {
                    // 摘要取编辑器纯文本状态下前 155 个字符
-                   var summary = UE.getEditor('container').getContentTxt().substr(0,155);
+                   var contentText = UE.getEditor('container').getContentTxt();
+                   var summary = contentText.substr(0,155);
 
                    $.post("${pageContext.request.contextPath}/admin/blog/save.do",{
                        "title":title,
                        "blogType.id":blogTypeId,
                        "content":content,
+                       "contentNoTag":contentText,
                        "summary":summary,
                        "keyword":keyword
                    },function(data){

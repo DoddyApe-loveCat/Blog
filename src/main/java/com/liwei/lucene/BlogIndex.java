@@ -37,12 +37,16 @@ import java.util.Properties;
  */
 public class BlogIndex {
 
-    private static String indexDir;
-
     private static final Logger logger = LoggerFactory.getLogger(BlogIndex.class);
 
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    // 存储 Lucene 索引文件的路径
+    private static String indexDir;
+
     static {
-        // 参考资料:http://outofmemory.cn/code-snippet/2770/Spring-usage-program-mode-duqu-properties-file
+        // 参考资料: Spring 使用程序方式读取 properties 文件
+        // http://outofmemory.cn/code-snippet/2770/Spring-usage-program-mode-duqu-properties-file
         if(indexDir == null){
             Resource resource = new ClassPathResource("config/config.properties");
             try {
@@ -57,24 +61,32 @@ public class BlogIndex {
 
     private Directory directory;
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-
+    /**
+     * 获得写索引的实例
+     * @return
+     */
     public IndexWriter getWriter(){
         IndexWriter indexWriter = null;
         try {
-            // TODO: 2016/8/22
             directory = FSDirectory.open(Paths.get(indexDir));
+            // 使用中文分词器
             SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
             IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
             indexWriter = new IndexWriter(directory,iwc);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         return indexWriter;
     }
 
+    /**
+     * 添加博客索引
+     * @param blog 一个博客对象
+     * 说明：id 存储，但是不分词，id 没有必要分词，所以使用 StringField，
+     * title 标题，标题数量不多，所以要存储，因为搜索要用到，所以也要分词，用 TextField
+     * releaseDate 发布时间，发布时间要存储，但是不分词，分词没有意义，所以用 StringField
+     * content 文章的内容，文章的内容存储，也要分词，所以使用 TextField
+     */
     public void addIndex(Blog blog){
         IndexWriter indexWriter = getWriter();
         Document document = new Document();
@@ -82,8 +94,8 @@ public class BlogIndex {
         document.add(new TextField("title",String.valueOf(blog.getTitle()), Field.Store.YES));
         String dateStr = sdf.format(blog.getReleaseDate());
         document.add(new StringField("releaseDate",dateStr, Field.Store.YES));
-        // // TODO: 2016/8/22  blog.getContentNoTag()
-        document.add(new TextField("content",blog.getContent(), Field.Store.YES));
+        // 添加索引的时候，博客的内容没有必要把标签信息作为索引的内容
+        document.add(new TextField("content",blog.getContextNoTag(), Field.Store.YES));
         try {
             indexWriter.addDocument(document);
             indexWriter.close();
