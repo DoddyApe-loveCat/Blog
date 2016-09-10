@@ -19,12 +19,12 @@
     <!-- 根据年份月份分组查询博客数量 todo 看看这种写法能不能优化一下 -->
     <select id="countList" resultMap="BlogResult">
         SELECT
-            DATE_FORMAT(release_date,'%Y年%m月') AS releaseDateStr,
-            COUNT(DATE_FORMAT(release_date,'%Y年%m月')) AS blogCount
+            DATE_FORMAT(release_date,'%Y%m') AS releaseDateStr,
+            COUNT(DATE_FORMAT(release_date,'%Y%m')) AS blogCount
         FROM
             t_blog
-        GROUP BY DATE_FORMAT(release_date,'%Y年%m月')
-        ORDER BY DATE_FORMAT(release_date,'%Y年%m月') DESC
+        GROUP BY releaseDateStr
+        ORDER BY releaseDateStr DESC
     </select>
 
     <!-- 根据主键 id 查询 Blog 实体 -->
@@ -47,7 +47,7 @@
                 type_id = #{type_id}
             </if>
             <if test="releaseDateStr!=null and releaseDateStr!=''">
-                and DATE_FORMAT(release_date,'%Y年%m月')=#{releaseDateStr}
+                and DATE_FORMAT(release_date,'%Y%m')=#{releaseDateStr}
             </if>
         </where>
         order by release_date desc
@@ -64,7 +64,7 @@
                 type_id = #{type_id}
             </if>
             <if test="releaseDateStr!=null and releaseDateStr!=''">
-                and DATE_FORMAT(release_date,'%Y年%m月')=#{releaseDateStr}
+                and DATE_FORMAT(release_date,'%Y%m')=#{releaseDateStr}
             </if>
         </where>
     </select>

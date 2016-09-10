@@ -95,7 +95,7 @@
                                     <%-- 指定年份和月份博主发表的博客数量 --%>
                                     <span class="badge">${blogCount.blogCount}</span>
                                     <%-- 发布日期（只取年份和月份）--%>
-                                    <a href="${pageContext.request.contextPath}/index.html?releaseDateStr=${blogCount.releaseDateStr}">${blogCount.releaseDateStr}</a>
+                                    <a class="releaseDate" href="${pageContext.request.contextPath}/index.html?releaseDateStr=${blogCount.releaseDateStr}">${blogCount.releaseDateStr}</a>
                                 </li>
                             </c:forEach>
                         </ul>
@@ -125,5 +125,17 @@
         <jsp:include page="foreground/common/foot.jsp"/>
 
     </div>
+    <script type="text/javascript">
+        $(function () {
+            $(".releaseDate").each(function(){
+                var origin = $(this).text();
+                var yearStr = origin.substring(0,4);
+                var monthStr = origin.substring(5,7);
+                var newStr = "";
+                newStr = newStr.concat(yearStr + "年" + monthStr + "月");
+                $(this).text(newStr);
+            });
+        });
+    </script>
 </body>
 </html>
