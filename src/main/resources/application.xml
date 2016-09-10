@@ -7,12 +7,17 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- 参考资料：spring引入properties文件，并在controller等层获得引入文件中属性的值
+     http://blog.csdn.net/wabiaozia/article/details/51627500
+     -->
+    <!-- 配置由spring读取jdbc的属性文件 -->
+    <context:property-placeholder location="classpath:config/jdbc.properties"/>
 
     <!-- 配置数据源，todo 这里数据源应该配置到一个属性文件中 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-        <property name="url" value="jdbc:mysql://localhost:3306/db_blog?useUnicode=true&amp;characterEncoding=UTF-8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="123456"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
     </bean>
 
     <!-- 配置 MyBatis 的 SqlSessionFactory -->
