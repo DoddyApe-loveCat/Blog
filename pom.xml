@@ -244,12 +244,33 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
-
-
     </dependencies>
+
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <package.environment>local</package.environment>
+            </properties>
+            <activation>
+                <!-- 默认激活这个配置 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!-- 生产环境，这里指的是我的 百度云 BAE 环境 -->
+            <id>product</id>
+            <properties>
+                <package.environment>product</package.environment>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
+
+            <!-- 编译插件：用于指定编译的 Java JDK 版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -260,7 +281,7 @@
                 </configuration>
             </plugin>
 
-
+            <!-- Jetty 插件：在本地部署测试更加方便 -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -271,6 +292,44 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                    <!-- 部署在百度云 bae 上，一定要叫 ROOT.war -->
+                    <!-- 虽然 IDEA 工具报提示警告，但是可以不理会，不影响使用 -->
+                    <warName>ROOT</warName>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/resources/config/${package.environment}</directory>
+                            <targetPath>WEB-INF/classes/config</targetPath>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
         </plugins>
+
+        <resources>
+            <!-- 指定资源文件的目录 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <!-- 包括文件 -->
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <!-- 排除文件，这些文件打包的时候应该被排除 -->
+                <excludes>
+                    <exclude>config/local/*.properties</exclude>
+                    <exclude>config/product/*.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 </project>
