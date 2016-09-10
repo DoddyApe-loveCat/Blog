@@ -6,11 +6,14 @@ import com.liwei.lucene.BlogIndex;
 import com.liwei.service.BlogService;
 import com.liwei.service.CommentService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -25,6 +28,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
+
+
+    private static final Logger logger = LoggerFactory.getLogger(BlogController.class);
 
     @Autowired
     private BlogService blogService;
@@ -98,24 +104,121 @@ public class BlogController {
         return pageCode.toString();
     }
 
+    /**
+     * 根据查询关键字查询搜索结果
+     * 【重要方法】
+     * @param q
+     * @param page
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/q",method = RequestMethod.GET)
     public ModelAndView search(
-            String q,
-            String page,
+            @RequestParam(value = "q",required = false) String q,
+            @RequestParam(value = "page",required = false) String page,
             HttpServletRequest request
     ){
-        Integer pageSize = 3;
+
+        // 现在每页显示 10 条记录
+        Integer pageSize = 10;
+        // 请求第几页数据
         page = StringUtils.isBlank(page) ? "1":page;
+        Integer pageInt = Integer.parseInt(page);
 
         ModelAndView mav = new ModelAndView();
-        mav.addObject("pageTitle","");
-        mav.addObject("mainPage","foreground/blog/result.jsp");
+        mav.addObject("pageTitle","关键字 " + q + " 的搜索结果");
+        mav.addObject("mainPage","foreground/blog/searchResult.jsp");
         List<Blog> blogList = blogIndex.searchBlog(q);
+        Integer totalNum = blogList.size();
 
-        mav.addObject("blogList",blogList);
+        // 不应该将全部的查询结果显示到页面上
+        // 可以使用 List 对象的 subList 方法截取须要的搜索结果
+        // 但是底层还是每次全部都查询
+        // 采用这种搜索策略，主要是因为一般我们的搜索结果总是会关注在前面几页
+        // 很少会关注后面几页的搜索结果，所以采用这种查询比较符合业务需求
+
+        // 截取 List 长度的开始索引
+        Integer start = (pageInt-1)*pageSize;
+        // 截取 List 长度的结束索引
+        Integer end = 0;
+        // 总页数
+        Integer totalPage = totalNum % pageSize == 0 ? totalNum/pageSize: totalNum/pageSize + 1;
+
+        if(pageInt < totalPage){
+            // 如果请求页数小于总页数
+            end = pageInt * pageSize;
+        }else {
+            end = totalNum;
+        }
+
+        mav.addObject("blogList",blogList.subList(start,end));
         mav.addObject("q",q);
-        mav.addObject("resultTotal",blogList.size());
+        mav.addObject("resultTotal",totalNum);
+
+        String contextPath = request.getContextPath();
+        logger.debug("contextPath => " + contextPath);
+
+
+        String pageCode = getPreviousAndNextLink(Integer.parseInt(page),pageSize,totalNum,q,request.getContextPath());
+        mav.addObject("pageCode",pageCode);
+
         mav.setViewName("mainTemp");
         return mav;
+    }
+
+
+    /**
+     * 获得搜索结果页的上一页、下一页的链接代码
+     * @param page 当前第几页
+     * @param pageSize 每页几条数据
+     * @param totalNum 总记录数
+     * @param q 查询关键字
+     * @param projectContext 请求链接上下文
+     * @return
+     *
+     *
+     */
+    private String getPreviousAndNextLink(Integer page,Integer pageSize,Integer totalNum,String q,String projectContext){
+        /*<nav>
+        <ul class="pager">
+        <li><a href="#">Previous</a></li>
+        <li><a href="#">Next</a></li>
+        </ul>
+        </nav>*/
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("<nav>");
+        sb.append("<ul class=\"pager\">");
+
+
+
+        Integer totalPage = totalNum % pageSize == 0 ? totalNum/pageSize: totalNum/pageSize + 1;
+        if(page == totalPage){
+
+            if(page == 1){
+                // 请求页数和总页数相同，说明只有一页，此时 上一页按钮 和 下一页按钮都禁用
+                sb.append("<li class='previous disabled'><a href='#'>上一页</a></li>");
+                sb.append("<li class='next disabled'><a href='#'>下一页</a></li>");
+
+            }else {
+                // 请求页数和总页数相同，请求页数不是第 1 页，那就是请求最后一页，所以下一页禁用
+                sb.append("<li class='previous'><a href='" + projectContext + "/blog/q.html?q=" + q + "&page=" + (page-1) +"'>上一页</a></li>");
+                sb.append("<li class='next disabled'><a href='#'>下一页</a></li>");
+            }
+
+        }
+        if(page < totalPage){
+            if(page == 1){
+                // 请求页数小于总页数，并且请求页数等于 1 ，说明上一页禁用
+                sb.append("<li class='previous disabled'><a href='#'>上一页</a></li>");
+                sb.append("<li class='next'><a href='" + projectContext + "/blog/q.html?q=" + q + "&page=" + (page+1) + "'>下一页</a></li>");
+            }else {
+                // 请求页数小于总页数，上一页和下一页都不禁用
+                sb.append("<li class='previous'><a href='" + projectContext + "/blog/q.html?q=" + q + "&page=" + (page-1) +"'>上一页</a></li>");
+                sb.append("<li class='next'><a href='" + projectContext + "/blog/q.html?q=" + q + "&page=" + (page+1) + "'>下一页</a></li>");
+
+            }
+        }
+        return sb.toString().replaceAll("previous","").replaceAll("next","");
     }
 }

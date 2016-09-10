@@ -38,12 +38,8 @@ public class IndexController {
     @Autowired
     private BlogService blogService;
 
-    /**
-     * todo 这里应该设置在配置文件中
-     */
     @Value("#{configProperties['indexPageSize']}")
     private Integer pageSize;
-
 
     @Value("#{configProperties['birthDay']}")
     private String birthDay;
@@ -51,10 +47,12 @@ public class IndexController {
     @Value("#{configProperties['startLearnJavaDay']}")
     private String startLearnJavaDay;
 
-
     /**
      * 请求主页
-     * @param page
+     * @param page 可能传递的请求参数之一：第几页
+     * @param typeId 可能传递的请求参数之一：类型
+     * @param releaseDateStr 可能传递的请求参数之一：发布日期
+     * @param request
      * @return
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
@@ -87,13 +85,15 @@ public class IndexController {
         List<Blog> blogList = blogService.list(params);
         Long totalNum = blogService.getTotal(params);
         mav.addObject("blogList",blogList);
+
         logger.debug("一共多少数据 totalNum ：" + totalNum);
         logger.debug("当前请求第几页数据 page ：" + page);
         logger.debug("每页多少条数据 pageSize：" + pageSize);
 
 
-        //  TODO: 2016/8/23
+        //  计算博主从出生之日起到现在一共经过了多少天
         Long passedDayNumBirth = getPassedDayNum(birthDay);
+        //  计算博主从第一天学习 Java 开始起到现在一共经过了多少天
         Long passedDayNumJava = getPassedDayNum(startLearnJavaDay);
 
         request.getSession().getServletContext().setAttribute("passedDayNumBirth",passedDayNumBirth);

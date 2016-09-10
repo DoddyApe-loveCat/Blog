@@ -11,7 +11,7 @@
         <h3 class="panel-title">我的 GitHub（写的一些重要的项目和练习都在 GitHub 上。）</h3>
     </div>
     <div class="panel-body">
-        <button type="button" class="btn btn-link">https://github.com/weimingge14</button>
+        <a target="_blank" href="https://github.com/weimingge14" class="btn btn-default" role="button">https://github.com/weimingge14</a>
     </div>
 </div>
 

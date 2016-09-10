@@ -16,7 +16,9 @@ public class Blog {
      */
     private String title;
     /**
-     * 摘要
+     * 摘要（默认取文章的前 155 个字符作为文章的摘要）
+     * 由前端 ueditor 提取正文（只取纯文本）的前 155 个字符
+     * 添加文章时生成，持久化在数据库中
      */
     private String summary;
     /**
@@ -40,7 +42,7 @@ public class Blog {
      * 博客实体内容，
      * 无网页标签，用于添加 Lucene 索引和查询
      */
-    private String contextNoTag;
+    private String contentNoTag;
 
 
     /**
@@ -149,12 +151,12 @@ public class Blog {
         this.releaseDateStr = releaseDateStr;
     }
 
-    public void setContextNoTag(String contextNoTag) {
-        this.contextNoTag = contextNoTag;
+    public void setContentNoTag(String contentNoTag) {
+        this.contentNoTag = contentNoTag;
     }
 
-    public String getContextNoTag() {
-        return contextNoTag;
+    public String getContentNoTag() {
+        return contentNoTag;
     }
 
     @Override

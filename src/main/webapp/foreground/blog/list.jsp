@@ -17,14 +17,16 @@
         <div class="panel-body">
             摘要：${blog.summary}
             <p class="text-right">
-                发表于 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/> 阅读(${blog.clickHit}) 评论(${blog.replyHit})
+                发表于 <fmt:formatDate value="${blog.releaseDate}" type="date" pattern="yyyy-MM-dd HH:mm:ss"/> 阅读(${blog.clickHit}) 评论(${blog.replyHit})
             </p>
         </div>
     </div>
 </c:forEach>
 
-<%-- 使用 Bootstrap 分页组件 --%>
 ${pageCode}
+
+<%-- 使用 Bootstrap 分页组件 --%>
+
 <%--
 <nav>
     <ul class="pagination">

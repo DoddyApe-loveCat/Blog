@@ -95,7 +95,7 @@ public class BlogIndex {
         String dateStr = sdf.format(blog.getReleaseDate());
         document.add(new StringField("releaseDate",dateStr, Field.Store.YES));
         // 添加索引的时候，博客的内容没有必要把标签信息作为索引的内容
-        document.add(new TextField("content",blog.getContextNoTag(), Field.Store.YES));
+        document.add(new TextField("content",blog.getContentNoTag(), Field.Store.YES));
         try {
             // 使用 IndexWriter 添加索引
             indexWriter.addDocument(document);
@@ -141,7 +141,7 @@ public class BlogIndex {
         document.add(new TextField("title",String.valueOf(blog.getTitle()), Field.Store.YES));
         String dateStr = sdf.format(blog.getReleaseDate());
         document.add(new StringField("releaseDate",dateStr, Field.Store.YES));
-        document.add(new TextField("content",blog.getContextNoTag(), Field.Store.YES));
+        document.add(new TextField("content",blog.getContentNoTag(), Field.Store.YES));
         try {
             // 使用 IndexWriter 更新索引
             indexWriter.updateDocument(new Term("id",String.valueOf(blog.getId())),document);
@@ -239,8 +239,8 @@ public class BlogIndex {
                     }
                 }
                 blogList.add(blog);
-                return blogList;
             }
+            return blogList;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {

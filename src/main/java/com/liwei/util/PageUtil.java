@@ -73,7 +73,7 @@ public class PageUtil {
             long showBeginPage = 1;
             long showEndPage = totalPage;
             // 如果总的页数大于 5 ，就应该控制页面显示的页码数量为 5 ，否则太难看了
-            if(totalPage > 5 ) {
+                if(totalPage > 5 ) {
                 if(currentNum < 3){
                     showBeginPage = 1;
                 }else if(currentNum <= totalPage - 2){
