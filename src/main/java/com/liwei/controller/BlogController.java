@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/blog")
+@PropertySource("classpath:config/config.properties")
 public class BlogController {
 
 
@@ -38,7 +41,11 @@ public class BlogController {
     @Autowired
     private CommentService commentService;
 
+    @Value("#{configProperties['searchPageSize']}")
+    private Integer searchPageSize;
+
     private BlogIndex blogIndex = new BlogIndex();
+
 
     /**
      * 请求博客具体信息
@@ -120,7 +127,7 @@ public class BlogController {
     ){
 
         // 现在每页显示 10 条记录
-        Integer pageSize = 10;
+        Integer pageSize = searchPageSize;
         // 请求第几页数据
         page = StringUtils.isBlank(page) ? "1":page;
         Integer pageInt = Integer.parseInt(page);
