@@ -269,7 +269,6 @@
 
     <build>
         <plugins>
-
             <!-- 编译插件：用于指定编译的 Java JDK 版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -314,16 +313,20 @@
 
         </plugins>
 
+        <!-- 主资源目录 -->
         <resources>
-            <!-- 指定资源文件的目录 -->
             <resource>
+                <!-- 设置主资源目录 -->
                 <directory>src/main/resources</directory>
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，是否对主资源目录开启资源过滤 -->
                 <filtering>true</filtering>
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，只处理如下配置中包含的资源类型 -->
                 <!-- 包括文件 -->
                 <includes>
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
                 </includes>
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，不处理如下配置中包含的资源类型（剔除下如下配置中包含的资源类型）-->
                 <!-- 排除文件，这些文件打包的时候应该被排除 -->
                 <excludes>
                     <exclude>config/local/*.properties</exclude>
