@@ -32,7 +32,9 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:application.xml</param-value>
     </context-param>
-    <!-- Spring 监听器 -->
+
+
+    <!-- 使用 org.springframework.web.context.ContextLoaderListener 加载 Spring 的配置文件 -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

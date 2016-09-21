@@ -10,6 +10,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.JsDateJsonValueProcessor;
+import org.apache.lucene.store.LockObtainFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -47,14 +49,23 @@ public class BlogAdminController {
             resultTotal = blogService.add(blog);
 
             // 添加索引
-            blogIndex.addIndex(blog);
+            try {
+                blogIndex.addIndex(blog);
+            }catch (RuntimeException e){
+                e.printStackTrace();
+            }
 
         }else{
             // 如果带上 id ，就表明是一个修改方法
             resultTotal = blogService.update(blog);
-
             // 更新索引
-            blogIndex.updateIndex(blog);
+            // 测试的时候抛出了 org.apache.lucene.store.LockObtainFailedException
+            // TODO: 2016/9/16 这样的异常捕获不好，暂时先这样处理，确保能够正常保存文章
+            try {
+                blogIndex.updateIndex(blog);
+            }catch (RuntimeException e){
+                e.printStackTrace();
+            }
         }
         Map<String,Object> result = new HashMap<>();
         if(resultTotal > 0 ){

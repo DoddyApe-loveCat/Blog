@@ -20,7 +20,7 @@
         <h3 class="panel-title">开源中国码云（主要存放了平常的一些练习。）</h3>
     </div>
     <div class="panel-body">
-        <button type="button" class="btn btn-link">http://git.oschina.net/weimingge</button>
+        <a target="_blank" href="http://git.oschina.net/weimingge" class="btn btn-default" role="button">http://git.oschina.net/weimingge4</a>
     </div>
 </div>
 
@@ -29,15 +29,15 @@
         <h3 class="panel-title">CSDN 博客（只写了这一个技术博客，方便自己记录，也可以与他人分享。）</h3>
     </div>
     <div class="panel-body">
-        <button type="button" class="btn btn-link">http://blog.csdn.net/lw_power</button>
+        <a target="_blank" href="http://blog.csdn.net/lw_power" class="btn btn-default" role="button">http://blog.csdn.net/lw_power</a>
     </div>
 </div>
 
 <div class="panel panel-warning">
     <div class="panel-heading">
-        <h3 class="panel-title">新浪微博（我不玩拉仇恨的朋友圈，却在没有一个现实中朋友的微博上晒我的精彩生活。）</h3>
+        <h3 class="panel-title">新浪微博（我不玩拉仇恨的朋友圈，只在没有一个现实中朋友的微博上晒我的精彩生活。）</h3>
     </div>
     <div class="panel-body">
-        <button type="button" class="btn btn-link">http://weibo.com/u/2194939432</button>
+        <a target="_blank" href="http://weibo.com/u/2194939432" class="btn btn-default" role="button">http://weibo.com/u/2194939432</a>
     </div>
 </div>
