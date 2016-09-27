@@ -9,7 +9,7 @@
         <div>
             <%--<p class="text-right">向右对齐文本</p>--%>
             <p class="text-right">
-                <a href="${pageContext.request.contextPath}/login.jsp" class="btn btn-default" role="button">
+                <a href="${pageContext.request.contextPath}/login.html" class="btn btn-default" role="button">
                     进入后台
                 </a>
             </p>

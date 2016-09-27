@@ -2,9 +2,10 @@ package com.liwei.controller;
 
 import com.liwei.entity.Blog;
 import com.liwei.entity.Comment;
-import com.liwei.lucene.BlogIndex;
+
 import com.liwei.service.BlogService;
 import com.liwei.service.CommentService;
+import com.liwei.service.impl.BlogIndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -47,7 +47,8 @@ public class BlogController {
     @Value("#{configProperties['searchPageSize']}")
     private Integer searchPageSize;
 
-    private BlogIndex blogIndex = new BlogIndex();
+    @Autowired
+    private BlogIndexService blogIndexService;
 
 
     /**
@@ -138,7 +139,7 @@ public class BlogController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("pageTitle","关键字 " + q + " 的搜索结果");
         mav.addObject("mainPage","foreground/blog/searchResult.jsp");
-        List<Blog> blogList = blogIndex.searchBlog(q);
+        List<Blog> blogList = blogIndexService.searchBlog(q);
         Integer totalNum = blogList.size();
 
         // 不应该将全部的查询结果显示到页面上

@@ -1,16 +1,13 @@
 package com.liwei.controller.admin;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.liwei.entity.Blog;
 import com.liwei.entity.PageBean;
-import com.liwei.lucene.BlogIndex;
+import com.liwei.service.impl.BlogIndexService;
 import com.liwei.service.BlogService;
+import com.liwei.service.impl.BlogIndexService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-import net.sf.json.processors.JsDateJsonValueProcessor;
-import org.apache.lucene.store.LockObtainFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -35,7 +31,8 @@ public class BlogAdminController {
     @Autowired
     private BlogService blogService;
 
-    private BlogIndex blogIndex = new BlogIndex();
+    @Autowired
+    private BlogIndexService blogIndexService;
 
     @ResponseBody
     @RequestMapping(value = "/save",method = RequestMethod.POST)
@@ -50,7 +47,7 @@ public class BlogAdminController {
 
             // 添加索引
             try {
-                blogIndex.addIndex(blog);
+                blogIndexService.addIndex(blog);
             }catch (RuntimeException e){
                 e.printStackTrace();
             }
@@ -62,7 +59,7 @@ public class BlogAdminController {
             // 测试的时候抛出了 org.apache.lucene.store.LockObtainFailedException
             // TODO: 2016/9/16 这样的异常捕获不好，暂时先这样处理，确保能够正常保存文章
             try {
-                blogIndex.updateIndex(blog);
+                blogIndexService.updateIndex(blog);
             }catch (RuntimeException e){
                 e.printStackTrace();
             }
@@ -128,10 +125,8 @@ public class BlogAdminController {
         List<Integer> idList = new ArrayList<>();
         for(String id:idsStrArr){
             idList.add(Integer.valueOf(id));
-
             // 批量删除索引
-            blogIndex.deleteIndex(id);
-
+            blogIndexService.deleteIndex(id);
         }
         Integer delNum = blogService.deleteBlogList(idList);
         Map<String,Object> result = new HashMap<>();

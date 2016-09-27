@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,5 +49,22 @@ public class BlogServiceTest {
     public void testGetBlogNumByTypeId(){
         Integer num = blogService.getBlogNumByTypeId(1);
         System.out.println(num);
+    }
+
+
+    @Test
+    public void testAddBlog(){
+        Blog blog = new Blog();
+        blog.setTitle("Shiro 学习(1)");
+        blog.setSummary("Shiro 是一款简单易用的 Java 安全框架。");
+        blog.setReleaseDate(new Date());
+        blog.setClickHit(50);
+        blog.setReplyHit(0);
+        blog.setContent("Shiro,不错不错,四大名著,春风又绿江南岸。");
+        BlogType blogType = new BlogType();
+        blogType.setId(11);
+        blog.setBlogType(blogType);
+        blog.setKeyword("认证 授权 会话 加密");
+        blogService.add(blog);
     }
 }

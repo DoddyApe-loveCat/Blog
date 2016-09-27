@@ -1,8 +1,6 @@
-package com.liwei.lucene;
+package com.liwei.service.impl;
 
 import com.liwei.entity.Blog;
-import com.liwei.entity.BlogType;
-import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.TokenStream;
@@ -23,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -35,9 +34,10 @@ import java.util.Properties;
 /**
  * Created by Liwei on 2016/8/22.
  */
-public class BlogIndex {
+@Service
+public class BlogIndexService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BlogIndex.class);
+    private static final Logger logger = LoggerFactory.getLogger(BlogIndexService.class);
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
