@@ -26,6 +26,8 @@ public interface BlogDao {
 
     List<Blog> list(Map<String,Object> params);
 
+    List<Blog> listAll();
+
     Long getTotal(Map<String,Object> params);
 
     /**

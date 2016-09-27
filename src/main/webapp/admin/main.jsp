@@ -13,13 +13,16 @@
           split boolean 为true时用户可以通过分割栏改变面板大小。
           --%>
         <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">
-            <strong>Java 博客后台管理系统</strong>
-
-            <div align="right">
+            <div style="float: left;margin-left:10px;margin-top: -10px;">
+                <h1>
+                    <strong>Java 博客后台管理系统</strong>
+                </h1>
+            </div>
+            <div align="right" style="float: right">
                 <span>欢迎您：<strong>${currentUser.nickName}。</span></strong>
+                <a href="${pageContext.request.contextPath}/index.html" class="logout">返回博客首页</a>
                 <a href="#" class="logout">安全退出</a>
             </div>
-
         </div>
         <div data-options="region:'west',split:true,title:'导航菜单'" style="width:150px;">
             <%-- easyui 手风琴（Accordion）组件 base 部分 --%>
@@ -30,7 +33,15 @@
                     <a href="#" onclick="javascript:openTab('评论审核','/admin/commentReview.jsp','icon-comment-review')"
                        class="easyui-linkbutton"
                        data-options="iconCls:'icon-comment-review'">评论审核</a>
-                    <a href="#" onclick="javascript:openTab('修改个人信息','/admin/modifyInfo.jsp','icon-blogger-manager')" class="easyui-linkbutton" data-options="iconCls:'icon-blogger-manager'">修改个人信息</a>
+                    <%-- 该 a 标签是一个克隆版 --%>
+                    <a href="#" id="often-refreshSystemCache"
+                       class="easyui-linkbutton"
+                       data-options="iconCls:'icon-refresh-cached'">刷新系统缓存</a>
+
+                    <%-- 该 a 标签是一个克隆版 --%>
+                    <a href="#" id="often-refreshBlogIndex"
+                       class="easyui-linkbutton"
+                       data-options="iconCls:'icon-refresh-index'">刷新文章索引</a>
                 </div>
                 <div title="博客管理" data-options="iconCls:'icon-blog-manager'" style="overflow:auto;padding:10px;">
                     <a href="#" onclick="javascript:openTab('写博客','/admin/writeBlog.jsp','icon-write-blog')" class="easyui-linkbutton" data-options="iconCls:'icon-write-blog'">写博客</a>
@@ -55,7 +66,12 @@
                     <a id="modifyPassword" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-modify-password'">修改密码</a>
                     <a href="#" id="refreshSystemCache"
                        class="easyui-linkbutton"
-                       data-options="iconCls:'icon-reflash-cached'">刷新系统缓存</a>
+                       data-options="iconCls:'icon-refresh-cached'">刷新系统缓存</a>
+
+                    <a href="#" id="refreshBlogIndex"
+                       class="easyui-linkbutton"
+                       data-options="iconCls:'icon-refresh-index'">刷新文章索引</a>
+
                     <a href="#" class="easyui-linkbutton logout" data-options="iconCls:'icon-logout'">安全退出</a>
 
                 </div>
@@ -216,6 +232,20 @@
                 window.location.href = "${pageContext.request.contextPath}/logout.do";
             });
 
+
+            $("#often-refreshSystemCache").on("click",function () {
+                $("#refreshSystemCache").trigger("click");
+            });
+
+            $("#refreshBlogIndex").on("click",function(){
+               $.get("${pageContext.request.contextPath}/admin/system/refreshBlogIndex.do",function(){
+                   $.messager.alert("系统提示","已经重新为您的博客文章建立了索引!");
+               });
+            });
+
+            $("#often-refreshBlogIndex").on("click",function(){
+                $("#refreshBlogIndex").trigger("click");
+            });
 
         </script>
     </body>

@@ -16,7 +16,8 @@ import java.util.Map;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/application.xml"})
+@ContextConfiguration({"classpath:spring/spring-service.xml",
+        "classpath:spring/spring-dao.xml"})
 public class LinkServiceTest {
 
     @Autowired

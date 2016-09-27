@@ -38,6 +38,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public List<Blog> listAll() {
+        return blogDao.listAll();
+    }
+
+    @Override
     public Long getTotal(Map<String, Object> params) {
         return blogDao.getTotal(params);
     }

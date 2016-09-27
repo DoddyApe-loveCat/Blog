@@ -56,6 +56,13 @@
         </if>
     </select>
 
+    <select id="listAll" parameterType="map" resultMap="BlogResult">
+        select
+        id,title,summary,release_date,click_hit,reply_hit,
+        content,type_id,key_word
+        from t_blog
+    </select>
+
     <!-- 该节点的 SQL 是配合上面一句 SQL 设置分页而出现的 -->
     <select id="getTotal" parameterType="map" resultType="long">
         select count(*) from t_blog

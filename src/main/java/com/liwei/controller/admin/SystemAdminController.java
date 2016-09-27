@@ -8,10 +8,13 @@ import com.liwei.service.BlogService;
 import com.liwei.service.BlogTypeService;
 import com.liwei.service.BloggerService;
 import com.liwei.service.LinkService;
+import com.liwei.service.impl.BlogIndexService;
+import com.liwei.util.HtmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -38,13 +41,16 @@ public class SystemAdminController {
     @Autowired
     private BlogTypeService blogTypeService;
 
+    @Autowired
+    private BlogIndexService blogIndexService;
+
 
 
     /**
      * 刷新缓存
      */
     @ResponseBody
-    @RequestMapping("/refreshCache")
+    @RequestMapping(value = "/refreshCache",method = RequestMethod.GET)
     public void refreshCache(HttpServletRequest request){
         // ServletContext application=RequestContextUtils.getWebApplicationContext(request).getServletContext();
         ServletContext servletContext = request.getSession().getServletContext();
@@ -69,4 +75,22 @@ public class SystemAdminController {
         List<Blog> blogCountList = blogService.countList();
         servletContext.setAttribute("blogCountList",blogCountList);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "refreshBlogIndex",method = RequestMethod.GET)
+    public void refreshBlogIndex() throws Exception{
+        // 删除所有的索引
+        blogIndexService.deleteAll();
+        // 博文数据重新从数据库里取出来
+        List<Blog> blogList = blogService.listAll();
+        for(Blog blog:blogList){
+            // 针对每篇文章依次创建索引(文章应该去掉 html 标签)
+            String originText = blog.getContent();
+            String text = HtmlUtil.getTextFromHtml(originText);
+            blog.setContentNoTag(text);
+            blogIndexService.addIndex(blog);
+        }
+    }
+
+
 }

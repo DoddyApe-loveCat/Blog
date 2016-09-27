@@ -35,6 +35,8 @@ public interface BlogService {
      */
     List<Blog> list(Map<String,Object> params);
 
+    List<Blog> listAll();
+
 
     /**
      * 获取总记录数

@@ -16,7 +16,8 @@ import java.util.Map;
  * Created by Liwei on 2016/8/21.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/application.xml"})
+@ContextConfiguration({"classpath:spring/spring-service.xml",
+        "classpath:spring/spring-dao.xml"})
 public class BlogTypeServiceTest {
 
     @Autowired

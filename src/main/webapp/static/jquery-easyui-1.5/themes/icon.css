@@ -157,7 +157,7 @@
 }
 
 /*刷新系统缓存*/
-.icon-reflash-cached {
+.icon-refresh-cached {
 	background: url('icons/cache_cleaner_15.733333333333px_1118339_easyicon.net.png') no-repeat center center;
 }
 
@@ -181,6 +181,10 @@
 	background: url('icons/sign_delete_15.223300970874px_1185686_easyicon.net.png') no-repeat center center;
 }
 
+/*刷新索引*/
+.icon-refresh-index{
+	background: url('icons/Software_Update_16px_511896_easyicon.net.png') no-repeat center center;
+}
 
 
 
