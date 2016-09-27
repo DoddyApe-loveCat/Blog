@@ -5,8 +5,6 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-
-
     <!-- Shiro 过滤器定义，文档地址：http://shiro.apache.org/spring.html-->
     <!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
     <filter>
@@ -30,7 +28,11 @@
     <!-- 引入 Spring 的配置文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:application.xml</param-value>
+        <param-value>
+            classpath:spring/spring-service.xml,
+            classpath:spring/spring-dao.xml,
+            classpath:spring/spring-shiro.xml
+        </param-value>
     </context-param>
 
 
@@ -71,7 +73,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring-mvc.xml</param-value>
+            <param-value>classpath:spring/spring-web.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>

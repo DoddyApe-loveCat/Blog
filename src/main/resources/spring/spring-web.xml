@@ -32,4 +32,16 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!-- 使用注解的包，包括子集 -->
     <context:component-scan base-package="com.liwei.controller"/>
 
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:/config/*.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties" />
+    </bean>
+
 </beans>

@@ -7,17 +7,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.util.*;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Liwei on 2016/8/5.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:application.xml"})
+@ContextConfiguration({"classpath:spring/application.xml"})
 public class CommentServiceTest {
 
     @Autowired

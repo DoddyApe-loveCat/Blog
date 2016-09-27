@@ -12,13 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Liwei on 2016/8/21.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:application.xml"})
+@ContextConfiguration({"classpath:spring/application.xml"})
 public class BlogTypeServiceTest {
 
     @Autowired

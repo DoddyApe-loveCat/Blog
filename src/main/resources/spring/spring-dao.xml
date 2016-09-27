@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 参考资料：spring引入properties文件，并在controller等层获得引入文件中属性的值
+     http://blog.csdn.net/wabiaozia/article/details/51627500
+     -->
+    <!-- 配置由spring读取jdbc的属性文件 -->
+    <context:property-placeholder location="classpath:config/jdbc.properties"/>
+
+    <!-- 配置数据源，todo 这里数据源应该配置到一个属性文件中 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!-- 配置 MyBatis 的 SqlSessionFactory -->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 自动扫描 MyBatis 的 mappers.xml 文件 -->
+        <property name="mapperLocations" value="classpath:com/liwei/mappers/*.xml"/>
+        <!-- 指定 Mybatis 的配置文件 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+
+    <!-- liwei：因为没有其它组件引用它，所以不须要设置 id -->
+    <!-- 配置 dao 接口所在的包名，Spring 的 MyBatis 集成会帮助我们实现接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 因为这里属性名字叫 BeanName，所以应该配置 value ，而不是 ref -->
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+        <property name="basePackage" value="com.liwei.dao"/>
+    </bean>
+
+</beans>
