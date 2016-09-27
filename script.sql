@@ -15,8 +15,6 @@ CREATE TABLE t_blogger (
   PRIMARY KEY (id)
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 comment '博主实体表';
 
-INSERT INTO t_blogger(userName,password,PROFILE,nickName,sign,imageName)
-values('admin','a66abb5684c45962d887564f08346e8d','等待添加','李威威','简单，诚实。','/static/userImages/liwei.jpg');
 
 DROP TABLE IF EXISTS t_blogtype;
 CREATE TABLE t_blogtype(
