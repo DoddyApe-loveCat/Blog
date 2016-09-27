@@ -41,6 +41,9 @@ public class BlogController {
     @Autowired
     private CommentService commentService;
 
+    /**
+     * 搜索结果页每页数据条数
+     */
     @Value("#{configProperties['searchPageSize']}")
     private Integer searchPageSize;
 
@@ -196,8 +199,6 @@ public class BlogController {
         StringBuffer sb = new StringBuffer();
         sb.append("<nav>");
         sb.append("<ul class=\"pager\">");
-
-
 
         Integer totalPage = totalNum % pageSize == 0 ? totalNum/pageSize: totalNum/pageSize + 1;
         if(page == totalPage){

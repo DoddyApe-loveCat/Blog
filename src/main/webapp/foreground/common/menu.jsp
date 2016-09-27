@@ -21,7 +21,7 @@
                     <ul class="nav navbar-nav">
                         <%-- class="active" 表示这部分着重显示 --%>
                         <li><a href="${pageContext.request.contextPath}/blogger/aboutMe.html">博主简介 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="${pageContext.request.contextPath}/srcDownload.html">源码下载</a></li>
+                        <li><a href="${pageContext.request.contextPath}/srcDownload.html">最近研究</a></li>
 
                         <%-- 下拉导航 --%>
                         <%--<li class="dropdown">

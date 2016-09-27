@@ -16,8 +16,7 @@ CREATE TABLE t_blogger (
 ) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 comment '博主实体表';
 
 INSERT INTO t_blogger(userName,password,PROFILE,nickName,sign,imageName)
-values('liwei','be78263da332dc2c7005f7551d7e57cd','我出生在一个普普通通的家庭，资质很一般，高考也没有考好，通过高考改变自己的人生已经没有希望了。所以现在从事 IT 行业，希望通过写代码让自己的生活有所改变。我觉得自己是一个和别人有点不一样的人，很单纯，很善良，容易听信他人的话，但也很有个性，不喜欢人云亦云，虽然不出众，但也有自己的特点。','李威威','生活简单，做人诚实。','/static/userImages/liwei.jpg');
-
+values('admin','a66abb5684c45962d887564f08346e8d','等待添加','李威威','简单，诚实。','/static/userImages/liwei.jpg');
 
 DROP TABLE IF EXISTS t_blogtype;
 CREATE TABLE t_blogtype(

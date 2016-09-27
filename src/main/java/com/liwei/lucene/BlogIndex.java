@@ -65,7 +65,7 @@ public class BlogIndex {
      * 获得写索引的实例
      * @return
      */
-    public IndexWriter getWriter(){
+    public IndexWriter getIndexWriter(){
         IndexWriter indexWriter = null;
         try {
             directory = FSDirectory.open(Paths.get(indexDir));
@@ -88,7 +88,7 @@ public class BlogIndex {
      * content 文章的内容，文章的内容存储，也要分词，所以使用 TextField
      */
     public void addIndex(Blog blog){
-        IndexWriter indexWriter = getWriter();
+        IndexWriter indexWriter = getIndexWriter();
         Document document = new Document();
         document.add(new StringField("id",String.valueOf(blog.getId()), Field.Store.YES));
         document.add(new TextField("title",String.valueOf(blog.getTitle()), Field.Store.YES));
@@ -111,7 +111,7 @@ public class BlogIndex {
      * @param blogId
      */
     public void deleteIndex(String blogId){
-        IndexWriter indexWriter = getWriter();
+        IndexWriter indexWriter = getIndexWriter();
         try {
             indexWriter.deleteDocuments(new Term("id",blogId));
             // 强制删除
@@ -135,7 +135,7 @@ public class BlogIndex {
      * @param blog
      */
     public void updateIndex(Blog blog){
-        IndexWriter indexWriter = getWriter();
+        IndexWriter indexWriter = getIndexWriter();
         Document document = new Document();
         document.add(new StringField("id",String.valueOf(blog.getId()), Field.Store.YES));
         document.add(new TextField("title",String.valueOf(blog.getTitle()), Field.Store.YES));
@@ -251,4 +251,15 @@ public class BlogIndex {
         return null;
     }
 
+
+    /**
+     * 删除所有索引文件(以方便重新建立索引)
+     */
+    public void deleteAll() throws IOException{
+        IndexWriter indexWriter = getIndexWriter();
+        indexWriter.deleteAll();
+        indexWriter.commit();
+        indexWriter.close();
+        System.out.println("索引目录下的所有索引文件清空完毕！");
+    }
 }

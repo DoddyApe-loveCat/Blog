@@ -28,4 +28,6 @@ public interface BloggerDao {
      * @return
      */
     Integer update(Blogger blogger);
+
+    Integer add(Blogger blogger);
 }

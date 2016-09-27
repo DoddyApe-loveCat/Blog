@@ -31,4 +31,11 @@ public interface BloggerService {
      * @return
      */
     Integer update(Blogger blogger);
+
+    /**
+     * 添加博主信息,主要用于单元测试使用
+     * @param blogger
+     * @return
+     */
+    Integer add(Blogger blogger);
 }

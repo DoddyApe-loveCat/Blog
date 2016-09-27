@@ -6,6 +6,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by liwei on 16/9/27.
+ * 与登录、退出登录相关的逻辑
  */
 @Controller
 public class LoginController {
@@ -49,7 +51,7 @@ public class LoginController {
             // Shiro 发挥了作用
             subject.login(token);
             // 重定向到一个 jsp 页面
-            return "redirect:/admin/main.jsp";
+            return "redirect:/admin/main.html";
         }catch (UnknownAccountException e){
             e.printStackTrace();
             msg = "用户名或者密码错误";
@@ -60,5 +62,30 @@ public class LoginController {
         request.setAttribute("blogger",blogger);
         request.setAttribute("msg",msg);
         return "login";
+    }
+
+    /**
+     * 退出登录
+     * @return
+     */
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public String logout(){
+        Subject subject = SecurityUtils.getSubject();
+        Object pc = subject.getPrincipal();
+        if(pc!=null){
+            String userName = pc.toString();
+            logger.debug("用户 " + userName + " 退出登录。");
+            subject.logout();
+        }
+        return "login";
+    }
+
+    /**
+     *
+     * @return
+     */
+    @RequestMapping(value = "/admin/main",method = RequestMethod.GET)
+    public String goToAdminIndex(){
+        return "admin/main";
     }
 }

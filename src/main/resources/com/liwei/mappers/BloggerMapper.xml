@@ -53,8 +53,9 @@
         where id = #{id}
     </update>
 
-
-
-
+    <insert id="add" parameterType="Blogger">
+        INSERT INTO t_blogger(userName,password,PROFILE,nickName,sign,imageName)
+        values(#{userName},#{password},#{profile},#{nickName},#{sign},#{imageName});
+    </insert>
 
 </mapper>
