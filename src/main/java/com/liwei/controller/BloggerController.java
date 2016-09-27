@@ -6,9 +6,12 @@ import com.liwei.util.CryptographyUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,31 +24,15 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/blogger")
 public class BloggerController {
 
+
+    private static final Logger logger = LoggerFactory.getLogger(BloggerController.class);
+
     @Autowired
     private BloggerService bloggerService;
 
-    @RequestMapping("/login")
-    public String login(Blogger blogger, HttpServletRequest request){
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(blogger.getUserName(),
-                CryptographyUtil.md5(blogger.getPassword(),"liwei"));
-        // 可能抛出运行时异常，须要捕获
-        try{
-            // Shiro 发挥了作用
-            subject.login(token);
-            // 重定向到一个 jsp 页面
-            return "redirect:/admin/main.jsp";
-        }catch (Exception e){
-            // TODO: 2016/8/1 应该记录日志
-            e.printStackTrace();
-            request.setAttribute("blogger",blogger);
-            request.setAttribute("error","用户名或者密码错误！");
-            return "login";
-        }
-    }
 
     /**
-     * 关于博主模块的讨论
+     * 关于博主模块
      * @return
      */
     @RequestMapping(value = "/aboutMe")

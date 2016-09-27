@@ -10,6 +10,7 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -17,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * 自定义的 Realm
  */
-public class Realm extends AuthorizingRealm {
+public class MyRealm extends AuthorizingRealm {
 
     @Autowired
     private BloggerService bloggerService;
@@ -43,12 +44,14 @@ public class Realm extends AuthorizingRealm {
         String userName = (String)token.getPrincipal();
         Blogger blogger = bloggerService.getByUserName(userName);
         if(blogger!=null){
-            SecurityUtils.getSubject().getSession().setAttribute("currentUser",blogger);
+
             // 验证信息
-            //  TODO: 2016/8/1 貌似这里是有错误的
             // 应该用 token 的密码去做验证，马上试试，只要用户名对就可以登录
             // 这里相当于没有验证密码一样
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(blogger.getUserName(),blogger.getPassword(),"xxx");
+            SimpleAuthenticationInfo authcInfo = new SimpleAuthenticationInfo(blogger.getUserName(),blogger.getPassword(),"xxx");
+            authcInfo.setCredentialsSalt(ByteSource.Util.bytes(userName));
+            // Session 管理
+            SecurityUtils.getSubject().getSession().setAttribute("currentUser",blogger);
             return authcInfo;
         }else {
             return null;

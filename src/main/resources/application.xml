@@ -45,9 +45,14 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--以下配置 Shiro -->
 
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"/>
+    </bean>
 
     <!-- 自定义 Realm 和安全管理器 -->
-    <bean id="myRealm" class="com.liwei.realm.Realm"></bean>
+    <bean id="myRealm" class="com.liwei.realm.MyRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+    </bean>
 
     <!-- 定义安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -65,7 +70,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <property name="securityManager" ref="securityManager"/>
 
         <!-- 身份认证失败，就跳转到登录页面 -->
-        <property name="loginUrl" value="/login.jsp"/>
+        <property name="loginUrl" value="/login.html"/>
         <!-- override these for application-specific URLs if you like:
 
         <property name="successUrl" value="/home.jsp"/>
