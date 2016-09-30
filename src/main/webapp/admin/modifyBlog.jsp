@@ -92,7 +92,7 @@
             //请求方法。可选值： 'GET', 'POST'，默认值是'POST'
             method: 'GET',
 
-            //超时时间。 默认为5000， 单位是ms
+            //超时时间。 默认为5000， 单位是ms 毫秒
             timeout: 10000,
 
             //是否是异步请求。 true为异步请求， false为同步请求
@@ -110,7 +110,11 @@
                 var data = eval("(" + xhr.responseText +")");
                 // 解析好的数据进行填充
                 $("#title").val(data.title);
+
+
                 $("#blogTypeId").combobox('setValue',data.blogType.id);
+
+
                 // 设置编辑器的内容
                 ue.setContent(data.content);
                 // alert(data.keyword);

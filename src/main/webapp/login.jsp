@@ -74,6 +74,7 @@
                             </div>
                         </form>
                         <span style="color:red">${msg}</span>
+                        测试账号:用户名:admin,密码:123456
                     </div>
                 </div>
             </div>

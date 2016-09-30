@@ -19,18 +19,18 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title">CSDN 博客（只写了这一个技术博客，方便自己记录，也可以与他人分享。）</h3>
+        <h3 class="panel-title">CSDN 博客</h3>
     </div>
     <div class="panel-body">
         <a target="_blank" href="http://blog.csdn.net/lw_power">http://blog.csdn.net/lw_power</a>
     </div>
 </div>
 
-<div class="panel panel-warning">
-    <div class="panel-heading">
-        <h3 class="panel-title">新浪微博（我不玩拉仇恨的朋友圈，只在没有一个现实中朋友的微博上晒我的精彩生活。）</h3>
-    </div>
-    <div class="panel-body">
-        <a target="_blank" href="http://weibo.com/u/2194939432">http://weibo.com/u/2194939432</a>
-    </div>
-</div>
+<%--<div class="panel panel-warning">--%>
+    <%--<div class="panel-heading">--%>
+        <%--<h3 class="panel-title">新浪微博</h3>--%>
+    <%--</div>--%>
+    <%--<div class="panel-body">--%>
+        <%--<a target="_blank" href="http://weibo.com/u/2194939432">http://weibo.com/u/2194939432</a>--%>
+    <%--</div>--%>
+<%--</div>--%>

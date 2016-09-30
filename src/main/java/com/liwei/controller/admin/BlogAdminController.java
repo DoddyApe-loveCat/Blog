@@ -112,7 +112,8 @@ public class BlogAdminController {
     @ResponseBody
     @RequestMapping(value = "/findById")
     public Blog findById(@RequestParam("id") String blogId){
-        return blogService.findByBlogId(Integer.valueOf(blogId));
+        Blog blog = blogService.findByBlogId(Integer.valueOf(blogId));
+        return blog;
     }
 
 
