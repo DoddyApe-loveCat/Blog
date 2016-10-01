@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface BloggerService {
-
-
     /**
      * 通过用户名查找用户
      * @param userName

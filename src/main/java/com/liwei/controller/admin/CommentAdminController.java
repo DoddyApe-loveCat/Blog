@@ -23,12 +23,17 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin/comment")
 public class CommentAdminController {
-
     private static final Logger logger = LoggerFactory.getLogger(CommentAdminController.class);
-
     @Autowired
     private CommentService commentService;
 
+    /**
+     * 查询评论列表用户 JQuery EasyUI 分页组件
+     * @param state
+     * @param page
+     * @param rows
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public Map<String,Object> list(
@@ -61,6 +66,12 @@ public class CommentAdminController {
         return result;
     }
 
+    /**
+     * 批量博客评论审核的方法
+     * @param ids
+     * @param state
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/review",method = RequestMethod.GET)
     public Map<String,Object> review(
@@ -95,6 +106,11 @@ public class CommentAdminController {
         return result;
     }
 
+    /**
+     * 批量删除博客评论
+     * @param ids
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/delete")
     public Map<String,Object> delete(
@@ -102,7 +118,6 @@ public class CommentAdminController {
     ){
         String[] idsStr = ids.split(",");
         Integer deleteNum = 0;
-
         if(idsStr.length == 1){
             deleteNum = commentService.delete(Integer.parseInt(idsStr[0]));
         }else {
@@ -121,7 +136,5 @@ public class CommentAdminController {
             result.put("errorInfo","删除失败。");
         }
         return result;
-
     }
-
 }

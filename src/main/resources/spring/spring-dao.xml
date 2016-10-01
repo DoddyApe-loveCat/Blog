@@ -29,7 +29,6 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
-
     <!-- liwei：因为没有其它组件引用它，所以不须要设置 id -->
     <!-- 配置 dao 接口所在的包名，Spring 的 MyBatis 集成会帮助我们实现接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

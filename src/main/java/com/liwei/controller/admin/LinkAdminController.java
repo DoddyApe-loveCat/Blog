@@ -23,12 +23,16 @@ import java.util.Map;
 @RequestMapping("/admin/link")
 @Controller
 public class LinkAdminController {
-
     private static final Logger logger = LoggerFactory.getLogger(LinkAdminController.class);
-
     @Autowired
     private LinkService linkService;
 
+    /**
+     * 友情链接查询,使用 JQuery EasyUI 组件
+     * @param page
+     * @param rows
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public Map<String,Object> list(
@@ -49,6 +53,11 @@ public class LinkAdminController {
         return result;
     }
 
+    /**
+     * 保存和更新使用同一个入口
+     * @param link
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public Map<String,Object> save(Link link){
@@ -70,6 +79,11 @@ public class LinkAdminController {
         return result;
     }
 
+    /**
+     * 批量删除友情链接
+     * @param ids
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     public Map<String,Object> delete(String ids){
@@ -95,5 +109,4 @@ public class LinkAdminController {
         }
         return result;
     }
-
 }

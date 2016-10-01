@@ -36,13 +36,11 @@ import java.util.Properties;
  */
 @Service
 public class BlogIndexService {
-
     private static final Logger logger = LoggerFactory.getLogger(BlogIndexService.class);
-
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
     // 存储 Lucene 索引文件的路径
     private static String indexDir;
+    private Directory directory;
 
     static {
         // 参考资料: Spring 使用程序方式读取 properties 文件
@@ -58,8 +56,6 @@ public class BlogIndexService {
             }
         }
     }
-
-    private Directory directory;
 
     /**
      * 获得写索引的实例
@@ -105,7 +101,6 @@ public class BlogIndexService {
         }
     }
 
-
     /**
      * 删除指定博客的索引（和更新指定博客的索引一样，通过 Term 对象，指定 id 进行删除）
      * @param blogId
@@ -125,7 +120,6 @@ public class BlogIndexService {
         }
 
     }
-
 
     /**
      * 更新博客索引（更新索引的内容其实和添加索引是一样的）
@@ -150,7 +144,6 @@ public class BlogIndexService {
             e.printStackTrace();
         }
     }
-
 
     /**
      * 【重要方法】
@@ -250,7 +243,6 @@ public class BlogIndexService {
         }
         return null;
     }
-
 
     /**
      * 删除所有索引文件(以方便重新建立索引)

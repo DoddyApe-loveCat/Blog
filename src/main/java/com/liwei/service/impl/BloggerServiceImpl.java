@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("bloggerService")
 public class BloggerServiceImpl implements BloggerService {
-
     @Autowired
     private BloggerDao bloggerDao;
-
 
     @Override
     public Blogger getByUserName(String userName) {

@@ -23,13 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/blogger")
 public class BloggerController {
-
-
     private static final Logger logger = LoggerFactory.getLogger(BloggerController.class);
-
     @Autowired
     private BloggerService bloggerService;
-
 
     /**
      * 关于博主模块
@@ -39,11 +35,8 @@ public class BloggerController {
     public ModelAndView aboutMe(){
         ModelAndView mav = new ModelAndView();
         mav.addObject("pageTitle","关于博主");
-
         mav.addObject("mainPage","/foreground/blogger/info.jsp");
         mav.setViewName("mainTemp");
         return mav;
     }
-
-
 }

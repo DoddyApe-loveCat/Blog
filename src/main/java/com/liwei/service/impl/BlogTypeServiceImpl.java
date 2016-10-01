@@ -14,10 +14,8 @@ import java.util.Map;
  */
 @Service("blogTypeService")
 public class BlogTypeServiceImpl implements BlogTypeService{
-
     @Autowired
     private BlogTypeDao blogTypeDao;
-
 
     @Override
     public List<BlogType> countList() {
@@ -58,6 +56,4 @@ public class BlogTypeServiceImpl implements BlogTypeService{
     public List<BlogType> findAll() {
         return blogTypeDao.findAll();
     }
-
-
 }

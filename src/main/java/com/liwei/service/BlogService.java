@@ -11,8 +11,6 @@ import java.util.Map;
  * Created by Liwei on 2016/8/2.
  */
 public interface BlogService {
-
-
     /**
      * 根据日期分月分组查询
      * @return
@@ -27,7 +25,6 @@ public interface BlogService {
      */
     Blog findByBlogId(Integer id);
 
-
     /**
      * 根据条件分页查询博客列表
      * @param params
@@ -36,7 +33,6 @@ public interface BlogService {
     List<Blog> list(Map<String,Object> params);
 
     List<Blog> listAll();
-
 
     /**
      * 获取总记录数
@@ -72,7 +68,6 @@ public interface BlogService {
      */
     Integer add(Blog blog);
 
-
     Integer deleteBlogList(List<Integer> ids);
 
     /**
@@ -81,5 +76,4 @@ public interface BlogService {
      * @return
      */
     Integer getBlogNumByTypeId(Integer typeId);
-
 }

@@ -12,9 +12,7 @@ import java.util.Date;
  * Created by Liwei on 2016/8/7.
  */
 public class DateJsonValueProcessor implements JsonValueProcessor{
-
     private String format;
-
     public DateJsonValueProcessor(String format){
         this.format = format;
     }
@@ -29,7 +27,6 @@ public class DateJsonValueProcessor implements JsonValueProcessor{
     public Object processArrayValue(Object o, JsonConfig jsonConfig) {
         return null;
     }
-
 
     @Override
     public Object processObjectValue(String s, Object o, JsonConfig jsonConfig) {

@@ -7,7 +7,6 @@ import java.util.Date;
  * 评论实体
  */
 public class Comment {
-
     /**
      * 编号
      */

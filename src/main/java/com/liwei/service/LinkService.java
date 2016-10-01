@@ -10,7 +10,6 @@ import java.util.Map;
  * 友情链接的 Service 接口
  */
 public interface LinkService {
-
     /**
      * 根据条件查找友情链接信息
      * @param params

@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 自定义的 Realm
  */
 public class MyRealm extends AuthorizingRealm {
-
     @Autowired
     private BloggerService bloggerService;
 
@@ -44,7 +43,6 @@ public class MyRealm extends AuthorizingRealm {
         String userName = (String)token.getPrincipal();
         Blogger blogger = bloggerService.getByUserName(userName);
         if(blogger!=null){
-
             // 验证信息
             // 应该用 token 的密码去做验证，马上试试，只要用户名对就可以登录
             // 这里相当于没有验证密码一样

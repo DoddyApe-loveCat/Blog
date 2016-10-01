@@ -32,18 +32,13 @@ import java.util.Map;
 @Controller
 @PropertySource("classpath:config/config.properties")
 public class IndexController {
-
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
-
     @Autowired
     private BlogService blogService;
-
     @Value("#{configProperties['indexPageSize']}")
     private Integer pageSize;
-
     @Value("#{configProperties['birthDay']}")
     private String birthDay;
-
     @Value("#{configProperties['startLearnJavaDay']}")
     private String startLearnJavaDay;
 
@@ -106,12 +101,12 @@ public class IndexController {
         return mav;
     }
 
-    private Long getPassedDayNum(String dateStr) {
+    private Long getPassedDayNum(String startDateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            Date learnJavaStartDate = sdf.parse(dateStr);
-            Long learnJavaStart = learnJavaStartDate.getTime();
-            Long passed = System.currentTimeMillis() - learnJavaStart;
+            Date startDate = sdf.parse(startDateStr);
+            Long startDateLong = startDate.getTime();
+            Long passed = System.currentTimeMillis() - startDateLong;
             Long passedDayNum = passed / 24 / 60 / 60 / 1000;
             return passedDayNum;
         } catch (ParseException e) {
@@ -132,6 +127,5 @@ public class IndexController {
         mav.setViewName("mainTemp");
         return mav;
     }
-
 }
 

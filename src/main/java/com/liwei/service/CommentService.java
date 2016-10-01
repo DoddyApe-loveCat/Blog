@@ -12,7 +12,6 @@ import java.util.Map;
  *
  */
 public interface CommentService {
-
     /**
      * 查看用户评论信息
      * @param params
@@ -62,5 +61,4 @@ public interface CommentService {
      * @return
      */
     Integer batchDelete(List<Integer> idList);
-
 }

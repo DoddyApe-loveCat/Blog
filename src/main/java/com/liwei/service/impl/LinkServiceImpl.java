@@ -14,7 +14,6 @@ import java.util.Map;
  */
 @Service("linkService")
 public class LinkServiceImpl implements LinkService {
-
     @Autowired
     private LinkDao linkDao;
 

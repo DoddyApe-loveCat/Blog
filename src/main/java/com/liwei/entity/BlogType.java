@@ -5,7 +5,6 @@ package com.liwei.entity;
  * Created by Liwei on 2016/8/2.
  */
 public class BlogType {
-
     /**
      * 编号
      */
@@ -22,7 +21,6 @@ public class BlogType {
      * 博客数量
      */
     private Integer blogCount;
-
 
     public Integer getId() {
         return id;

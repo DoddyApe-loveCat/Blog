@@ -15,7 +15,6 @@ public class PageBean {
      * 请求第几页
      */
     private Integer page;
-
     /**
      * 每页显示多少条数据
      */
@@ -25,7 +24,6 @@ public class PageBean {
      * mysql 分页查询 limit 子句的第 1 个参数
      */
     private Integer start;
-
 
     public PageBean() {
     }

@@ -12,7 +12,6 @@ import java.util.Map;
  */
 public interface BlogTypeDao {
 
-
     /**
      * 查看所有的博客类型，以及对应的博客数量
      * @return
@@ -32,5 +31,4 @@ public interface BlogTypeDao {
     Integer deleteList(List<Integer> idList);
 
     List<BlogType> findAll();
-
 }

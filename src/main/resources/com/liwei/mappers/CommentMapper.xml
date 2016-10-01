@@ -84,7 +84,6 @@
         where id = #{id}
     </delete>
 
-
     <update id="batchUpdateState" parameterType="map">
         update t_comment
         <set>
@@ -105,4 +104,5 @@
             #{id}
         </foreach>
     </delete>
+
 </mapper>

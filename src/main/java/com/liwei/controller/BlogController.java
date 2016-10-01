@@ -31,25 +31,18 @@ import java.util.Map;
 @RequestMapping("/blog")
 @PropertySource("classpath:config/config.properties")
 public class BlogController {
-
-
     private static final Logger logger = LoggerFactory.getLogger(BlogController.class);
-
     @Autowired
     private BlogService blogService;
-
     @Autowired
     private CommentService commentService;
-
     /**
      * 搜索结果页每页数据条数
      */
     @Value("#{configProperties['searchPageSize']}")
     private Integer searchPageSize;
-
     @Autowired
     private BlogIndexService blogIndexService;
-
 
     /**
      * 请求博客具体信息
@@ -179,7 +172,6 @@ public class BlogController {
         mav.setViewName("mainTemp");
         return mav;
     }
-
 
     /**
      * 获得搜索结果页的上一页、下一页的链接代码

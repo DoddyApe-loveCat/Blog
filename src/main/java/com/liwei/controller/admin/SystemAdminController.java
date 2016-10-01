@@ -28,23 +28,16 @@ import java.util.List;
 @RequestMapping("/admin/system")
 @Controller
 public class SystemAdminController {
-
     @Autowired
     private BloggerService bloggerService;
-
     @Autowired
     private LinkService linkService;
-
     @Autowired
     private BlogService blogService;
-
     @Autowired
     private BlogTypeService blogTypeService;
-
     @Autowired
     private BlogIndexService blogIndexService;
-
-
 
     /**
      * 刷新缓存
@@ -91,6 +84,4 @@ public class SystemAdminController {
             blogIndexService.addIndex(blog);
         }
     }
-
-
 }

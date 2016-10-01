@@ -37,14 +37,11 @@ public class Blog {
      * 博客内容
      */
     private String content;
-
     /**
      * 博客实体内容，
      * 无网页标签，用于添加 Lucene 索引和查询
      */
     private String contentNoTag;
-
-
     /**
      * 博客类型
      */

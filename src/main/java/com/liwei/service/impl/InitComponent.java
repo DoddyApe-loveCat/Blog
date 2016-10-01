@@ -24,7 +24,6 @@ import java.util.List;
  */
 @Component
 public class InitComponent implements ServletContextListener,ApplicationContextAware {
-
     /**
      * 声明成 static 特别重要，否则获取不到
      */

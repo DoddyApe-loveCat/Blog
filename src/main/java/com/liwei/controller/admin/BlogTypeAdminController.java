@@ -27,22 +27,19 @@ import java.util.Map;
 @RequestMapping("/admin/blogType")
 @Controller
 public class BlogTypeAdminController {
-
     private static final Logger logger = LoggerFactory.getLogger(BlogTypeAdminController.class);
     @Autowired
     private BlogTypeService blogTypeService;
-
     @Autowired
     private BlogService blogService;
 
-
     /**
-     * 前台使用 easyui 分页组件
+     * 使用 easyui 分页组件,注意接收参数和返回数据格式
      * @param page
      * @param rows
      * @return
      */
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> list(
             String page,
@@ -63,7 +60,6 @@ public class BlogTypeAdminController {
         result.put("total",total);
         result.put("rows",blogTypeList);
         return result;
-
     }
 
     /**
@@ -104,6 +100,13 @@ public class BlogTypeAdminController {
         return result;
     }
 
+    /**
+     * 批量删除博客类型
+     * 这里要注意当博客中还有的文章属于待删除的博客类型的情况
+     * @param idList
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     public Map<String,Object> delete(
@@ -111,6 +114,7 @@ public class BlogTypeAdminController {
             HttpServletRequest request){
         Integer deleteNum = 0;
         try{
+            // 业务上处理可以先查询,查询有的文章还在待删除的博客类型下,就提示用户不能删除
             deleteNum = blogTypeService.deleteList(idList);
         }catch (DataIntegrityViolationException e){
             e.printStackTrace();
@@ -126,16 +130,14 @@ public class BlogTypeAdminController {
         return result;
     }
 
-
     /**
      * 查询所有的博客类型信息(不带统计信息)
      * @return
      */
     @ResponseBody
-    @RequestMapping("/findAll")
+    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     public List<BlogType> findAll(){
         List<BlogType> blogTypeList = blogTypeService.findAll();
         return blogTypeList;
     }
-
 }

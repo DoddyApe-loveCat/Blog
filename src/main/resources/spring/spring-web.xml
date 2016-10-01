@@ -16,7 +16,6 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <mvc:resources mapping="/static/**" location="/static/"/>
 
-
     <!-- 配置视图解析器 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>

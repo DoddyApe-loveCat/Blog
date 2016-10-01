@@ -8,7 +8,6 @@
         <result column="order_no" property="orderNo"/>
     </resultMap>
 
-
     <select id="findAll" resultMap="BlogTypeResultMap">
         SELECT
             id,type_name

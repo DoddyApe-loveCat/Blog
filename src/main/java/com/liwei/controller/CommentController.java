@@ -23,10 +23,7 @@ import java.util.Map;
 @RequestMapping("/comment")
 @Controller
 public class CommentController {
-
-
     private static final Logger logger = LoggerFactory.getLogger(CommentController.class);
-
     @Autowired
     private CommentService commentService;
 
@@ -70,5 +67,4 @@ public class CommentController {
         }
         return map;
     }
-
 }

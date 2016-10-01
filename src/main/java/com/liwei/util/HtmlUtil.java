@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
  * Created by liwei on 16/9/27.
  */
 public class HtmlUtil {
-
     private static final String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
     private static final String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
     private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式

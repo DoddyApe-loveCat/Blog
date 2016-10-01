@@ -6,7 +6,6 @@ package com.liwei.entity;
  * 友情链接实体类
  */
 public class Link {
-
     /**
      * 编号
      */
@@ -23,7 +22,6 @@ public class Link {
      * 排序序号，升序排序
      */
     private Integer orderNo;
-
 
     public Integer getId() {
         return id;

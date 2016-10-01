@@ -23,17 +23,25 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class LoginController {
-
     private static final Logger logger = LoggerFactory.getLogger(BloggerController.class);
-
     @Autowired
     private BloggerService bloggerService;
 
+    /**
+     * 跳转到登录页面
+     * @return
+     */
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(){
         return "login";
     }
 
+    /**
+     * 登录逻辑
+     * @param blogger
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String login(Blogger blogger, HttpServletRequest request){
         Subject subject = SecurityUtils.getSubject();
@@ -42,10 +50,8 @@ public class LoginController {
         String password = blogger.getPassword();
         logger.debug("用户在表单中填写的用户名 => " + userName);
         logger.debug("用户在表单中填写的密码 => " + password);
-
         // UsernamePasswordToken 就应该传递用户从表单中传来的用户名和密码
         UsernamePasswordToken token = new UsernamePasswordToken(userName,password);
-
         String msg = null;
         try{
             // Shiro 发挥了作用

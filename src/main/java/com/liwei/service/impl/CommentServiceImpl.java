@@ -15,10 +15,8 @@ import java.util.Map;
  */
 @Service("commentService")
 public class CommentServiceImpl implements CommentService{
-
     @Autowired
     private CommentDao commentDao;
-
 
     @Override
     public List<Comment> list(Map<String, Object> params) {

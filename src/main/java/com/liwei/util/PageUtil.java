@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
  </nav>
  */
 public class PageUtil {
-
     private static final Logger logger = LoggerFactory.getLogger(PageUtil.class);
 
     /**
@@ -107,5 +106,4 @@ public class PageUtil {
             return pageCode.toString();
         }
     }
-
 }

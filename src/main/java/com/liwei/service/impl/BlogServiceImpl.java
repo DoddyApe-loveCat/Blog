@@ -17,10 +17,8 @@ import java.util.Map;
  */
 @Service("blogService")
 public class BlogServiceImpl implements BlogService {
-
     @Autowired
     private BlogDao blogDao;
-
 
     @Override
     public List<Blog> countList() {

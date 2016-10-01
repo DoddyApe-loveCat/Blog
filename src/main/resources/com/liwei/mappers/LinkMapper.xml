@@ -28,7 +28,6 @@
         </if>
     </select>
 
-
     <select id="getTotal" parameterType="map" resultType="long">
         SELECT count(id) from t_link
         <where>

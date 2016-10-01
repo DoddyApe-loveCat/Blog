@@ -17,5 +17,4 @@ public class CryptographyUtil {
     public static String md5(String str,String salt){
         return new Md5Hash(str,salt).toString();
     }
-
 }
