@@ -139,7 +139,10 @@ public class BlogController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("pageTitle","关键字 " + q + " 的搜索结果");
         mav.addObject("mainPage","foreground/blog/searchResult.jsp");
+        long searchStart = System.currentTimeMillis();
         List<Blog> blogList = blogIndexService.searchBlog(q);
+        long searchEnd = System.currentTimeMillis();
+        mav.addObject("spendTime",(searchEnd - searchStart));
         Integer totalNum = blogList.size();
 
         // 不应该将全部的查询结果显示到页面上

@@ -120,16 +120,15 @@ public class IndexController {
         return null;
     }
 
-
     /**
-     * 本站源码下载
+     * 跳转到页面个人简历
      * @return
      */
-    @RequestMapping(value = "/srcDownload")
-    public ModelAndView srcDownload(){
+    @RequestMapping(value = "/resume",method = RequestMethod.GET)
+    public ModelAndView resume1(){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("pageTitle","本站源码下载");
-        mav.addObject("mainPage","foreground/system/download.jsp");
+        mav.addObject("pageTitle","个人简历");
+        mav.addObject("mainPage","foreground/system/resume.jsp");
         mav.setViewName("mainTemp");
         return mav;
     }

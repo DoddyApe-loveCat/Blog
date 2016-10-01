@@ -87,7 +87,7 @@
                         if(data.success){
 
                             // 提示用户
-                            $.messager.alert("系统提示","保存成功！");
+                            $.messager.alert("系统提示","保存成功,请手动刷新系统缓存查看结果！");
 
                             // 重置
                             $("#typeName").val("");
@@ -149,7 +149,7 @@
                            "deleteIds":deleteIds
                        },function(data){
                             if(data.success){
-                                $.messager.alert("系统提示！","删除成功！");
+                                $.messager.alert("系统提示！","删除成功,请手动刷新系统缓存查看结果。");
                                 $("#blogTypeManagerTable").datagrid("reload");
                             }else {
                                 $.messager.alert("系统提示！",data.errorInfo);

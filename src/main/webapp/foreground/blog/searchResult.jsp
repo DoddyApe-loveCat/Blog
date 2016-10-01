@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-搜索 ${q} 的结果 (总共搜索到 ${resultTotal} 条记录,耗时  秒。)
+搜索 ${q} 的结果 (总共搜索到 ${resultTotal} 条记录,耗时 ${spendTime} 毫秒,您现在看到的是第 ${param.page == null ? 1 :param.page} 页的数据。)
 
 <c:forEach items="${blogList}" var="blog">
     <div class="panel panel-success">
@@ -18,8 +18,7 @@
         <div class="panel-body">
             摘要：${blog.content}
             <p class="text-right">
-                发表于 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/> 阅读(${blog.clickHit}) 评论(${blog.replyHit})
-            </p>
+                发表于 ${blog.releaseDateStr}
         </div>
     </div>
 </c:forEach>

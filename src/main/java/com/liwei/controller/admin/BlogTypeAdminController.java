@@ -96,17 +96,11 @@ public class BlogTypeAdminController {
         }
         Map<String,Object> result = new HashMap<>();
         if(updateNum>0){
-            // 应该刷新 ServletContext 中博客类型的数据
-            List<BlogType> blogTypeCountList = blogTypeService.countList();
-            request.getSession().getServletContext().setAttribute("blogTypeCountList",blogTypeCountList);
             result.put("success",true);
         }else {
             result.put("success",false);
             result.put("errorInfo","添加失败。");
         }
-
-        // 更新缓存
-
         return result;
     }
 
@@ -125,11 +119,6 @@ public class BlogTypeAdminController {
         if(deleteNum > 0){
             result.put("success",true);
             logger.debug("成为删除了 " + deleteNum + "条记录。");
-
-            // 应该刷新 ServletContext 中博客类型的数据
-            List<BlogType> blogTypeCountList = blogTypeService.countList();
-            request.getSession().getServletContext().setAttribute("blogTypeCountList",blogTypeCountList);
-
         }else {
             result.put("success",false);
             result.put("errorInfo","您选择的数据类型下还有文章,请检查。");

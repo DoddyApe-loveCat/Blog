@@ -6,7 +6,7 @@
     </head>
     <body>
         <div id="info" class="easyui-panel">
-            <form id="modifyInfo" method="post">
+            <form id="modifyInfo" method="post" enctype="multipart/form-data">
                 <table cellpadding="10">
                     <tr>
                         <td style="width: 80px">用户名：</td>
@@ -70,8 +70,9 @@
             $("#modifyInfo").form({
                 "url":"${pageContext.request.contextPath}/admin/blogger/save.do",
                 "success":function(data){
+                    data = eval("("+data+")");
                     if(data.success){
-                        alert("修改个人信息成功!");
+                        alert("修改个人信息成功,请手动刷新系统缓存以后,查看更新结果!");
                     }
                 }
             });

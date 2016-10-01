@@ -7,6 +7,21 @@
 例如,博客类型列表数据。
 
 
+Spring MVC 文件上传的步骤
+1、表达的属性设置:enctype="multipart/form-data"
+2、input 的类型设置为 file ,注意设置 name 属性值,在 Spring MVC 的 Controller 里面需要通过这个 name 去匹配
+3、在 Spring MVC 的配置文件中配置文件上传
+ <!-- 配置文件上传 使用的是 CommonsMultipartResolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+4、在控制器中使用
+@RequestParam("imageFile")  MultipartFile imageFile
+可以获得刚刚上传的文件对象。
+
+
+
 1、思考部署方案：
 （1）开发环境：
 （2）百度 bae 环境：
@@ -102,5 +117,10 @@ page 第几页
 rows 每页多少条数据（pageSize）
 
 
-登录错误的部分还未开发好
+
+
+
+备用的代码:
+个人信息中关于图片显示的代码:
+<img style="width: 400px" src="${pageContext.request.contextPath}${blogger.imageName}">
 

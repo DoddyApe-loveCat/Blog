@@ -25,33 +25,33 @@ import java.util.*;
 @RequestMapping("/admin/blog")
 @Controller
 public class BlogAdminController {
-
     private static final Logger logger = LoggerFactory.getLogger(BlogAdminController.class);
-
     @Autowired
     private BlogService blogService;
-
     @Autowired
     private BlogIndexService blogIndexService;
 
+    /**
+     * 新增和修改使用同一个方法,根据请求参数是否有 id 来判断:
+     * 有 id 执行修改逻辑
+     * 没有 id 执行新增逻辑
+     * @param blog
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public Map<String,Object> save(Blog blog){
-
         blog.setReleaseDate(new Date());
-
         int resultTotal = 0;
         // 如果不带 id，就表明是一个新增的方法
         if(blog.getId() == null){
             resultTotal = blogService.add(blog);
-
             // 添加索引
             try {
                 blogIndexService.addIndex(blog);
             }catch (RuntimeException e){
                 e.printStackTrace();
             }
-
         }else{
             // 如果带上 id ，就表明是一个修改方法
             resultTotal = blogService.update(blog);
@@ -73,7 +73,6 @@ public class BlogAdminController {
         }
         return result;
     }
-
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
@@ -116,8 +115,6 @@ public class BlogAdminController {
         return blog;
     }
 
-
-
     @ResponseBody
     @RequestMapping(value="/deleteBlogList")
     public Map<String,Object> deleteBlogList(@RequestParam("ids") String ids){
@@ -139,5 +136,4 @@ public class BlogAdminController {
         }
         return result;
     }
-
 }

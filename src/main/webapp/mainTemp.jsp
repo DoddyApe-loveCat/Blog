@@ -20,6 +20,10 @@
             .list-group-item{
                 border: 0px;
             }
+
+            .text-right{
+                float: right;
+            }
         </style>
     </head>
     <body>
@@ -28,13 +32,7 @@
             <jsp:include page="foreground/common/menu.jsp"/>
             <%-- 中间开始--%>
             <div class="row">
-                <%-- 左边博客列表 --%>
-                <div class="col-md-9">
 
-                    <%-- 这里是经常变化的，所以应该设置为变量 foreground/blog/list.jsp --%>
-                    <jsp:include page="${mainPage}"/>
-
-                </div>
                 <%-- 右边个人简介和友情链接 --%>
                 <div class="col-md-3">
                     <div class="panel panel-default">
@@ -112,6 +110,15 @@
                         </div>
                     </div>
                 </div>
+
+                <%-- 左边博客列表 --%>
+                <div class="col-md-9">
+
+                    <%-- 这里是经常变化的，所以应该设置为变量 foreground/blog/list.jsp --%>
+                    <jsp:include page="${mainPage}"/>
+
+                </div>
+
             </div>
             <jsp:include page="foreground/common/foot.jsp"/>
         </div>

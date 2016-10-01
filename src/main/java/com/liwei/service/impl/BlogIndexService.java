@@ -202,7 +202,7 @@ public class BlogIndexService {
                 doc = indexSearcher.doc(scoreDoc.doc);
                 blog = new Blog();
                 blog.setId(Integer.parseInt(doc.get("id")));
-                blog.setReleaseDateStr(doc.get("releaseData"));
+                blog.setReleaseDateStr(doc.get("releaseDate"));
                 String title = doc.get("title");
 
                 // 为了使得一些特殊符合能够正常显示

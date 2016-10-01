@@ -19,14 +19,12 @@
             userName = #{userName}
     </select>
 
-
     <!-- 查询博主信息（博主就一个人）
      没有参数，可以不声明参数的类型
      -->
     <select id="find"  resultMap="BloggerResult">
         select * from t_blogger where id = 1
     </select>
-
 
     <update id="update" parameterType="Blogger">
         update t_blogger
