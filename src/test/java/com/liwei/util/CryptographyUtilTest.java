@@ -16,10 +16,16 @@ public class CryptographyUtilTest {
      * @throws Exception
      */
     @Test
-    public void md5() throws Exception {
+    public void md5_1() throws Exception {
         String password = "123456";
         String salt = "admin";
         System.out.println("MD5 加密：" + CryptographyUtil.md5(password,salt));
     }
 
+    @Test
+    public void md5_2() throws Exception {
+        String password = "123456";
+        String salt = "admin123";
+        System.out.println("MD5 加密：" + CryptographyUtil.md5(password,salt));
+    }
 }

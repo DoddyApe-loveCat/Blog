@@ -37,9 +37,13 @@
                 <h1 style="font-family:微软雅黑">Java 博客后台管理系统</h1>
             </div>
         </div>
+
         <div class="row" id="login_middle_bg">
+
             <div class="container">
-                <div class="col-md-8"></div>
+
+                <div class="col-md-8">
+                </div>
                 <div class="col-md-4">
                     <div id="login_form_div">
                         <%-- 表单部分请参考 Bootstrap 官网文档 表单部分 --%>
@@ -79,5 +83,11 @@
                 </div>
             </div>
         </div>
+        <div class="container">
+            注意事项:<br>
+            1、添加博文、修改博文之前,请先确保博客的类型已经添加;<br>
+            2、如果博客的类型添加以后,并未出现在博客类型列表中,请刷新缓存。
+        </div>
+
     </body>
 </html>

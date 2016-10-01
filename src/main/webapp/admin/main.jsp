@@ -98,7 +98,7 @@
             </div>
         </div>
 
-
+        <%-- 修改密码对话框 --%>
         <div id="passwdDialog" class="easyui-dialog" data-options="closed:true,toolbar:'#password-toolbar'" style="width: 300px;height: 180px">
             <form id="passwdForm" method="post">
                 <table cellspacing="10px">

@@ -141,12 +141,12 @@
                 for(var i=0;i<selections.length;i++){
                     deleteIds.push(selections[i].id);
                 }
-                var deleteIdsStr = deleteIds.join(",");
-                console.info(deleteIdsStr);
+
+
                 $.messager.confirm("系统提示！","您确定要删除这几条数据吗？",function(r){
                    if(r){
                        $.get("${pageContext.request.contextPath}/admin/blogType/delete.do",{
-                           "deleteIdsStr":deleteIdsStr
+                           "deleteIds":deleteIds
                        },function(data){
                             if(data.success){
                                 $.messager.alert("系统提示！","删除成功！");

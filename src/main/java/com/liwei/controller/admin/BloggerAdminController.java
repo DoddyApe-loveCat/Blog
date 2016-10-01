@@ -39,6 +39,14 @@ public class BloggerAdminController {
         return blogger;
     }
 
+
+    /**
+     * 个人信息页面不修改密码,密码会在专门的页面进行修改
+     * 并且个人信息页面应该禁止用户修改用户名,
+     * 因为用户名是加密的盐,修改了用户名,等于修改了密码
+     * @param blogger
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/save")
     public Map<String,Object> save(Blogger blogger){
@@ -60,11 +68,11 @@ public class BloggerAdminController {
     @ResponseBody
     @RequestMapping(value = "/modifyPassword")
     public Map<String,Object> modifyPassword(
-
+            String userName,
             String bloggerId,
             String newPassword){
         logger.debug("bloggerId => " + bloggerId);
-        String newPasswordCrypt = CryptographyUtil.md5(newPassword,"liwei");
+        String newPasswordCrypt = CryptographyUtil.md5(newPassword,userName);
         Blogger blogger = new Blogger();
         blogger.setId(Integer.parseInt(bloggerId));
         blogger.setPassword(newPasswordCrypt);
@@ -80,8 +88,6 @@ public class BloggerAdminController {
         }
         return result;
     }
-
-
 
 
 }

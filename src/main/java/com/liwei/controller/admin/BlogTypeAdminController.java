@@ -8,12 +8,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,12 +66,21 @@ public class BlogTypeAdminController {
 
     }
 
+    /**
+     * 增加和修改使用同一个方法,
+     * 如果请求参数 id 为 null ,则表示方法为添加
+     * @param id
+     * @param typeName
+     * @param orderNo
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public Map<String,Object> add(
             @RequestParam(value = "id",required = false) String id,
             @RequestParam(value = "typeName",required = true) String typeName,
-            @RequestParam(value = "orderNo",required = true) String orderNo){
+            @RequestParam(value = "orderNo",required = true) String orderNo,
+            HttpServletRequest request){
         logger.debug("id => " + id);
         logger.debug("typeName => " + typeName);
         logger.debug("orderNo => " + orderNo);
@@ -85,36 +96,52 @@ public class BlogTypeAdminController {
         }
         Map<String,Object> result = new HashMap<>();
         if(updateNum>0){
+            // 应该刷新 ServletContext 中博客类型的数据
+            List<BlogType> blogTypeCountList = blogTypeService.countList();
+            request.getSession().getServletContext().setAttribute("blogTypeCountList",blogTypeCountList);
             result.put("success",true);
         }else {
             result.put("success",false);
             result.put("errorInfo","添加失败。");
         }
+
+        // 更新缓存
+
         return result;
     }
 
     @ResponseBody
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
-    public Map<String,Object> delete(@RequestParam("deleteIdsStr") String ids){
-        logger.debug("deleteIdsStr => " + ids);
-        List<Integer> idList = new ArrayList<>();
-        String[] idStrArray = ids.split(",");
-        for(String id:idStrArray){
-            idList.add(Integer.parseInt(id));
+    public Map<String,Object> delete(
+            @RequestParam("deleteIds[]") List<Integer> idList,
+            HttpServletRequest request){
+        Integer deleteNum = 0;
+        try{
+            deleteNum = blogTypeService.deleteList(idList);
+        }catch (DataIntegrityViolationException e){
+            e.printStackTrace();
         }
-        Integer deleteNum = blogTypeService.deleteList(idList);
-
         Map<String,Object> result = new HashMap<>();
         if(deleteNum > 0){
             result.put("success",true);
             logger.debug("成为删除了 " + deleteNum + "条记录。");
+
+            // 应该刷新 ServletContext 中博客类型的数据
+            List<BlogType> blogTypeCountList = blogTypeService.countList();
+            request.getSession().getServletContext().setAttribute("blogTypeCountList",blogTypeCountList);
+
         }else {
             result.put("success",false);
-            result.put("errorInfo","删除失败！");
+            result.put("errorInfo","您选择的数据类型下还有文章,请检查。");
         }
         return result;
     }
 
+
+    /**
+     * 查询所有的博客类型信息(不带统计信息)
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/findAll")
     public List<BlogType> findAll(){

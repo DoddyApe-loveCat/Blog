@@ -38,7 +38,7 @@
                     <tr>
                         <td>链接地址：</td>
                         <td>
-                            <input id="linkUrl" class="easyui-validatebox" type="text" name="linkUrl" data-options="required:true"/>
+                            <input id="linkUrl" style="width: 300px;" class="easyui-validatebox" type="text" name="linkUrl" data-options="required:true"/>
                         </td>
                     </tr>
                     <tr>

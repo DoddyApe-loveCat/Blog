@@ -11,8 +11,9 @@
                     <tr>
                         <td style="width: 80px">用户名：</td>
                         <td>
-                            <input id="id" name="id" type="text">
+                            <input id="id" name="id" type="hidden">
                             <input id="userName" name="userName" type="text" class="easyui-textbox" style="width: 400px">
+                            (用户名不可修改)
                         </td>
                     </tr>
                     <tr>
@@ -62,11 +63,16 @@
                 "fit":true
             });
 
+            // 设置用户名输入框是只读的
+            $('#userName').attr('readonly',true);
 
+            // 使用 ajax 的方式提交表单
             $("#modifyInfo").form({
                 "url":"${pageContext.request.contextPath}/admin/blogger/save.do",
                 "success":function(data){
-                    console.info(data);
+                    if(data.success){
+                        alert("修改个人信息成功!");
+                    }
                 }
             });
 
