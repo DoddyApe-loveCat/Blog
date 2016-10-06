@@ -1,4 +1,4 @@
-package com.liwei.realm;
+package com.liwei.shiro.realm;
 
 import com.liwei.entity.Blogger;
 import com.liwei.service.BloggerService;

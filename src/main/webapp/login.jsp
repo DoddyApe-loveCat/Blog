@@ -73,6 +73,17 @@
                                     <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码" name="password" type="password" value="${blogger.password}">
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"name="rememberMe">记住我
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-danger btn-block">提交</button>
                             </div>

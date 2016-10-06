@@ -22,7 +22,11 @@
     <!-- ensure that Shiro works in subsequent filters in the filter chain:             -->
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
 
     <!-- 引入 Spring 的配置文件 -->

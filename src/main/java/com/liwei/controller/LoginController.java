@@ -6,6 +6,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -38,12 +39,15 @@ public class LoginController {
 
     /**
      * 登录逻辑
-     * @param blogger
+     * @param blogger 封装了用户登录的信息
+     * @param rememberMe 是否记住我
      * @param request
      * @return
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String login(Blogger blogger, HttpServletRequest request){
+    public String login(Blogger blogger,
+                        Boolean rememberMe,
+                        HttpServletRequest request){
         Subject subject = SecurityUtils.getSubject();
 
         String userName = blogger.getUserName();
@@ -54,8 +58,15 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(userName,password);
         String msg = null;
         try{
+
             // Shiro 发挥了作用
+            if(rememberMe != null && rememberMe == true){
+                token.setRememberMe(true);
+            }
             subject.login(token);
+            // 获得 Session
+            Session session = subject.getSession(true);
+            session.setAttribute("user",userName);
             // 重定向到一个 jsp 页面
             return "redirect:/admin/main.html";
         }catch (UnknownAccountException e){

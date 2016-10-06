@@ -43,4 +43,12 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <property name="properties" ref="configProperties" />
     </bean>
 
+
+    <!--特别注意:如果使用Shiro相关的注解，需要在springmvc-servlet.xml中配置一下信息-->
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
 </beans>

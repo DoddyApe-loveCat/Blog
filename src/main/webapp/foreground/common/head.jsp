@@ -9,12 +9,11 @@
         <div>
             <%--<p class="text-right">向右对齐文本</p>--%>
             <p class="text-right">
-                <a href="${pageContext.request.contextPath}/login.html" class="btn btn-default" role="button">
+                <a href="${pageContext.request.contextPath}/admin/main.html" class="btn btn-default" role="button">
                     进入后台
                 </a>
-            </p>
-            <p class="text-right">
-                <span class="label label-success">
+                <br>
+                <span>
                     博主出生 ${passedDayNumBirth} 天,博主学习 Java ${passedDayNumJava} 天。
                 </span>
             </p>
